@@ -2,13 +2,13 @@ package park.dto;
 
 public class MemberDto {
 	String id;
-	String password;
-	String passwordcheck;
+	private String password;
+	private String passwordcheck;
 	String name;
-	String date;
+	String birth;
 	String gender;
 	String email;
-	String phone;
+	private String phone;
 	
 	public String getId() {
 		return id;
@@ -34,11 +34,11 @@ public class MemberDto {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public String getDate() {
-		return date;
+	public String getBirth() {
+		return birth;
 	}
-	public void setDate(String date) {
-		this.date = date;
+	public void setBirth(String birth) {
+		this.birth = birth;
 	}
 	public String getGender() {
 		return gender;

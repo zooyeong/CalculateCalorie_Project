@@ -51,16 +51,16 @@ public class MemberDao {
 	}
 	
 	//select
-	public int selectPersonInfoListByIdPw(String id, String pw){
+	public MemberDto selectPersonInfoListById(String id){
 		Connection conn = null;
 		PreparedStatement psmt = null;
 		ResultSet rs = null;
-		int check = -1; //아이디 없음
+		MemberDto memberDto = null;
 		
 		try {
 			conn = DBConnectionManager.getConnection();
 			
-			String sql = "select id, password"
+			String sql = "select *"
 					+" from member_info"
 					+" where id = ?";
 			
@@ -71,12 +71,19 @@ public class MemberDao {
 			rs = psmt.executeQuery();
 			
 			if(rs.next()) {
+
+				memberDto = new MemberDto();
 				
-				if(rs.getString("password").equals(pw)) {
-					check = 1; //아이디 비밀번호 일치
-				} else {
-					check = 0; //비밀번호 불일치
-				}
+				//차이 이해하기
+//				memberDto.setId("id");
+//				memberDto.id = rs.getString("id");
+				memberDto.setId(rs.getString("id"));
+				memberDto.setPassword(rs.getString("password"));
+				memberDto.setName(rs.getString("name"));
+				memberDto.setBirth(rs.getString("birth"));
+				memberDto.setGender(rs.getString("gender"));
+				memberDto.setEmail(rs.getString("email"));
+				memberDto.setPhone(rs.getString("phone"));
 				
 			}
 		} catch (Exception e) {
@@ -85,6 +92,39 @@ public class MemberDao {
 			DBConnectionManager.close(rs, psmt, conn);
 		}
 		
-		return check;
-	}	
+		return memberDto;
+	}
+
+	public boolean loginCheck(String id){
+		Connection conn = null;
+		PreparedStatement psmt = null;
+		ResultSet rs = null;
+		boolean result = false;
+		
+		try {
+			conn = DBConnectionManager.getConnection();
+			
+			String sql = "select *"
+					+" from member_info"
+					+" where id = ? ";
+			
+			psmt = conn.prepareStatement(sql);
+			
+			psmt.setString(1, id); 
+			
+			rs = psmt.executeQuery();
+			
+			if(rs.next()) {
+
+				result = true;
+				
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		} finally {
+			DBConnectionManager.close(rs, psmt, conn);
+		}
+		
+		return result;
+	}
 }
