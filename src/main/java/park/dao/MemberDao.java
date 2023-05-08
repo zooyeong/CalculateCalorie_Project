@@ -118,7 +118,7 @@ public class MemberDao {
 
 				result = true;
 				
-			}
+			} 
 		} catch (Exception e) {
 			// TODO: handle exception
 		} finally {

@@ -20,8 +20,10 @@
 		String name = request.getParameter("name");
 		String birth = request.getParameter("birth");
 		String gender = request.getParameter("gender");
-		String email = request.getParameter("email");
-		String phoneNum = request.getParameter("phoneNum");
+		String email = request.getParameter("email")
+				+ "@" + request.getParameter("emailaddress");
+		String phoneNum = request.getParameter("phoneNum")
+				+ request.getParameter("phoneNum2") + request.getParameter("phoneNum3");
 		
 		MemberDao memberDao = new MemberDao();
 		
