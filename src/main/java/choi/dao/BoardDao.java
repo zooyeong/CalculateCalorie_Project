@@ -23,7 +23,8 @@ public class BoardDao {
 			conn = DBConnectionManager.getConnection();
 
 			String sql = "select *"
-					+ " from board";
+					+ " from board"
+					+ " where post_no = 1";
 
 			psmt = conn.prepareStatement(sql);
 
@@ -53,5 +54,35 @@ public class BoardDao {
 		}
 		
 		return boardInfoList;		
+	}
+	
+	
+	public int insertBoard(String title) {
+
+		Connection conn = null;
+		PreparedStatement psmt = null;
+		ResultSet rs = null;
+		int result = 0;
+		try {
+			conn = DBConnectionManager.getConnection();
+
+			// 쿼리문!
+			String sql = "insert into board(user_id, title)"
+						+" values('123', ?)";
+
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, title);
+			
+			result = psmt.executeUpdate();
+			
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			DBConnectionManager.close(rs, psmt, conn);
+		}
+		
+		return result;
 	}
 }
