@@ -5,6 +5,7 @@
 <%@ page import="park.dto.MemberDto" %>
 <%@ page import="java.util.*" %>
 <%@ page session = "true" %>
+<%@ page import="java.text.SimpleDateFormat" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,6 +15,10 @@
 <body>
 	<%
 		request.setCharacterEncoding("UTF-8");
+	
+		Date time = new Date(); //현재시간
+		
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-mm-dd");
 		
 		String id = request.getParameter("id");
 		String pw = request.getParameter("pw");
@@ -38,6 +43,8 @@
 	<%
 		} else{
 			if(memberDto.getPassword().equals(pw)){
+				session.setAttribute("user_id", id);
+				session.setAttribute("user_name", memberDto.getName());
 	%>
 				
 	<script>
@@ -45,8 +52,8 @@
 	</script>
 
 	<%
-				session.setAttribute("user_id", id);
-				session.setAttribute("user_name", memberDto.getName());
+				session = request.getSession();
+				memberDao.updateAccessedDate(id, formatter.format(session.getLastAccessedTime()));
 	%>
 	<script>
 				location.href = 'index.jsp'; //로그인 성공 -> 메인페이지로 이동(수정해야함)

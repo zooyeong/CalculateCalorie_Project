@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+<%@ page import="park.dao.MemberDao" %>
+<%@ page import="park.dto.MemberDto" %>
+<%@ page import="java.util.*" %>
+<%@ page session = "true" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,6 +12,46 @@
 <title>Insert title here</title>
 </head>
 <body>
+	<%
+		request.setCharacterEncoding("UTF-8");
 	
+		session = request.getSession();
+		String user_id = (String)session.getAttribute("user_id");
+		
+		String user_pw = request.getParameter("pw");
+		String user_pwNew = request.getParameter("pwNew");
+		String user_pwChk = request.getParameter("pwChk");
+		
+		MemberDao memberDao = new MemberDao();
+		
+		boolean result = memberDao.pwCheck(user_id, user_pw);
+		
+		if(result){
+			int updateResult = memberDao.updatePassword(user_id, user_pwNew);
+			
+			if(updateResult == 1){
+	%>
+				<script>
+					alert('비밀번호 변경 성공');
+				</script>
+	<%
+			} else{
+	%>
+				<script>
+					alert('비밀번호 변경 실패');
+				</script>
+	<%
+			}
+		} else{
+	%>
+			<script>
+				alert('비밀번호 변경 실패! 비밀번호가 일치하지 않습니다');
+			</script>
+	<%		
+		}
+	%>
+	<script>
+		location.href = 'mypage.jsp';
+	</script>
 </body>
 </html>

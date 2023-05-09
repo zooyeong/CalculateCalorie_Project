@@ -22,12 +22,12 @@
 		String gender = request.getParameter("gender");
 		String email = request.getParameter("email")
 				+ "@" + request.getParameter("emailaddress");
-		String phoneNum = request.getParameter("phoneNum")
-				+ request.getParameter("phoneNum2") + request.getParameter("phoneNum3");
+		String phoneNum = request.getParameter("phoneNum");
 		
 		MemberDao memberDao = new MemberDao();
 		
 		int result = memberDao.insertMemberInfo(id, pw, pwChk, name, birth, gender, email, phoneNum);
+		int result2 = memberDao.insertJoinDate(id);
 		
 		if(result == 1){
 	%>

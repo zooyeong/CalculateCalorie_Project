@@ -36,13 +36,11 @@
 	            <option value="korea">싱가포르 +65</option>
 	            <option value="korea">영국 +44</option>
 	          </select>
-			<input type="text" id="inputPhoneNum" name="phoneNum">-    	
-			<input type="text" id="inputPhoneNum2" name="phoneNum2">-     	
-			<input type="text" id="inputPhoneNum3" name="phoneNum3">
+			<input type="text" id="inputPhoneNum" name="phoneNum" placeholder="-없이 숫자만 입력">
 			<button type="button">인증번호 발송</button><br>      	
         	<label for="inputEmail">이메일</label>
         	<input type="text" id="inputEmail" name="email" placeholder="이메일주소 입력(선택)">
-        	@<input type="text" id="inputAddress" disabled>
+        	@<input type="text" id="inputAddress" name="emailaddress_x" disabled>
         	<input type="hidden" id="inputAddress2" name="emailaddress">
         	<select name="select_address" id="select_address" onchange="email_change()">
         		<option value="0">이메일주소선택</option>
@@ -146,16 +144,16 @@
 		function openIdChk(){
 			let id = document.getElementById('inputId');
 			let idV = document.getElementById('inputId').value;
+			let reg = new RegExp("^[a-zA-z0-9]{6,12}$");
 			
 			if(idV == "" || idV.length < 0){
 				alert('아이디를 입력해주세요')
 				id.focus();
-			}else if((idV < "0" || idV > "9") && (idV < "A" || idV > "Z") &&
-					(idV < "a" || idV > "z")){
-				alert("한글 및 특수문자는 아이디로 사용할 수 없습니다")
-				return false;
 			}else if(idV.length < 6 || idV.length > 12){
 				alert("아이디는 6자 이상 12자 이하로 작성해주세요")
+				return false;
+			}else if(!reg.test(idV)){
+				alert("한글 및 특수문자는 아이디로 사용할 수 없습니다")
 				return false;
 			}else{				
 				window.name = "parentForm";
@@ -171,14 +169,20 @@
 		function email_change(){
 			if(document.getElementById("select_address").value == "0"){
 				document.getElementById("inputAddress").disabled = true;
+				document.getElementById("inputAddress").name = "emailaddress_x";
+				document.getElementById("inputAddress2").name = "emailaddress";
 				document.getElementById("inputAddress").value = "";
 			}
 			if(document.getElementById("select_address").value == "9"){
 				document.getElementById("inputAddress").disabled = false;
+				document.getElementById("inputAddress").name = "emailaddress";
+				document.getElementById("inputAddress2").name = "emailaddress_x";
 				document.getElementById("inputAddress").value = "";
 				document.getElementById("inputAddress").focus();
 			} else{
 				document.getElementById("inputAddress").disabled = true;
+				document.getElementById("inputAddress").name = "emailaddress_x";
+				document.getElementById("inputAddress2").name = "emailaddress";
 				document.getElementById("inputAddress").value = 
 					document.getElementById("select_address").value;
 				document.getElementById("inputAddress2").value = 
