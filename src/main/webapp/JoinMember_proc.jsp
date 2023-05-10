@@ -43,7 +43,7 @@
 		</script>
 	<% } %>
 		<script>
-			location.href = 'index.jsp'; //메인페이지로 이동(수정해야함)
+			location.href = 'tempMain.jsp'; //메인페이지로 이동(수정해야함)
 		</script>	
 </body>
 </html>

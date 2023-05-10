@@ -20,6 +20,10 @@
 	    
 	    <button id="loginBtn" type="button">로그인</button>
 		<button id="cancelBtn" type="button">취소</button>
+		<br>
+		<a href="">아이디찾기</a>
+		<a href="">비밀번호찾기</a>
+		<a href="joinAgree.jsp">회원가입</a>
 	</form>
 	
 	<script>

@@ -20,7 +20,7 @@
 		
 		MemberDao memberDao = new MemberDao();
 		
-		MemberDto memberDto = memberDao.selectPersonInfoListById(user_id);
+		MemberDto memberDto = memberDao.selectMemberInfoById(user_id);
 		try {
 			if(memberDto == null){
 				
@@ -35,7 +35,7 @@
 				<form name='pwChangeForm' action='pwChange_proc.jsp' method='post'>
 				
 					<span>아이디</span> <%=" : "+memberDto.getId() %><br>
-					<label for="pw">기존 비밀번호</label>
+					<label for="pw">현재 비밀번호</label>
 					<input type="password" id="pw" name="pw" placeholder="password"><br>
 					<label for="pwNew">변경할 비밀번호</label>
 					<input type="password" id="pwNew" name="pwNew" placeholder="new password"><br>
@@ -47,6 +47,7 @@
 					<span>성별</span> <%=" : "+memberDto.getGender() %><br>
 					<span>이메일</span> <%=" : "+memberDto.getEmail() %><br>
 					<span>휴대폰번호</span> <%=" : "+memberDto.getPhone() %><br>
+					<button id="withdrawBtn" type="button" onclick="location.href='withdraw.jsp'">회원탈퇴</button>
 				</form>
 					
 				<script>

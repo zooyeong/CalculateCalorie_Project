@@ -5,6 +5,7 @@
 <%@ page import="park.dto.MemberDto" %>
 <%@ page import="java.util.*" %>
 <%@ page session = "true" %>
+<%@ page import="java.text.SimpleDateFormat" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -35,6 +36,10 @@
 					alert('비밀번호 변경 성공');
 				</script>
 	<%
+				Date date1 = new Date(session.getLastAccessedTime());
+				SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+				String lastDate = formatter.format(date1);
+				memberDao.updateDate(user_id, lastDate);
 			} else{
 	%>
 				<script>

@@ -10,7 +10,7 @@
 	
 	<a href="Login.jsp">로그인</a>	
 	<a href="mypage_loginChk.jsp">마이페이지</a>
-	<a href="JoinMember.jsp">회원가입</a>
+	<a href="joinAgree.jsp">회원가입</a>
 
 	<h1>로그인 여부</h1>
 	
