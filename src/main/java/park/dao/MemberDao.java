@@ -82,6 +82,40 @@ public class MemberDao {
 		return result;
 	}
 	
+	//insert(회원가입>약관동의)
+	public int insertAgreeCheck(String id, String f0001, String f0002, String f0003) {
+
+		Connection conn = null;
+		PreparedStatement psmt = null;
+		ResultSet rs = null;
+		int result = 0;
+		try {
+			conn = DBConnectionManager.getConnection();
+
+			//쿼리문!
+			String sql = "insert into agree_check "
+					+ " (id, f0001, f0002, f0003)"
+					+ " values (?,?,?,?)";
+
+			psmt = conn.prepareStatement(sql);
+			
+			psmt.setString(1, id); 
+			psmt.setString(2, f0001); 
+			psmt.setString(3, f0002); 
+			psmt.setString(4, f0003); 
+			
+			result = psmt.executeUpdate();
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			DBConnectionManager.close(rs, psmt, conn);
+		}
+		
+		return result;
+	}
+	
 	//select(id로 회원정보 가져오기)
 	public MemberDto selectMemberInfoById(String id){
 		Connection conn = null;
@@ -230,6 +264,81 @@ public class MemberDao {
 		}
 		
 		return manageDto;
+	}
+	
+	//select(아이디찾기)
+	public MemberDto selectId(String name, String phone){
+		Connection conn = null;
+		PreparedStatement psmt = null;
+		ResultSet rs = null;
+		MemberDto memberDto = null;
+		
+		try {
+			conn = DBConnectionManager.getConnection();
+			
+			String sql = "select *"
+					+" from member_info"
+					+" where name = ? and phone = ?";
+			
+			psmt = conn.prepareStatement(sql);
+			
+			psmt.setString(1, name); 
+			psmt.setString(2, phone); 
+			
+			rs = psmt.executeQuery();
+			
+			if(rs.next()) {
+
+				memberDto = new MemberDto();
+				
+				memberDto.setId(rs.getString("id"));
+				
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		} finally {
+			DBConnectionManager.close(rs, psmt, conn);
+		}
+		
+		return memberDto;
+	}
+	
+	//select(비밀번호찾기)
+	public MemberDto selectPw(String id, String name, String phone){
+		Connection conn = null;
+		PreparedStatement psmt = null;
+		ResultSet rs = null;
+		MemberDto memberDto = null;
+		
+		try {
+			conn = DBConnectionManager.getConnection();
+			
+			String sql = "select *"
+					+" from member_info"
+					+" where id = ? and name = ? and phone = ?";
+			
+			psmt = conn.prepareStatement(sql);
+			
+			psmt.setString(1, id); 
+			psmt.setString(2, name); 
+			psmt.setString(3, phone); 
+			
+			rs = psmt.executeQuery();
+			
+			if(rs.next()) {
+
+				memberDto = new MemberDto();
+				
+				memberDto.setPassword(rs.getString("password"));
+				
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		} finally {
+			DBConnectionManager.close(rs, psmt, conn);
+		}
+		
+		return memberDto;
 	}
 	
 	//update(비밀번호)

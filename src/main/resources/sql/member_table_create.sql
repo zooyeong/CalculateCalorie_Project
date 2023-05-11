@@ -1,7 +1,7 @@
 CREATE TABLE member_info(
 	id VARCHAR2(20) PRIMARY KEY,
-	password VARCHAR2(20) NOT NULL,
-	passwordcheck VARCHAR2(20) NOT NULL,
+	password VARCHAR2(60) NOT NULL,
+	passwordcheck VARCHAR2(60) NOT NULL,
 	name VARCHAR2(20) NOT NULL,
 	birth DATE,
 	gender VARCHAR2(1),

@@ -3,6 +3,7 @@
     
 <%@ page import="park.dao.MemberDao" %>
 <%@ page import="park.dto.MemberDto" %>
+<%@ page import="park.oracle.AES256" %>
 <%@ page import="java.util.*" %>
 <!DOCTYPE html>
 <html>
@@ -24,10 +25,20 @@
 				+ "@" + request.getParameter("emailaddress");
 		String phoneNum = request.getParameter("phoneNum");
 		
+		String agree1 = request.getParameter("agree1");
+		String agree2 = request.getParameter("agree2");
+		String agree3 = request.getParameter("agree3");
+		
+		AES256 aes256 = new AES256();
+		String encPw = aes256.encrypt(pw);
+		String encPwChk = aes256.encrypt(pwChk);
+		
 		MemberDao memberDao = new MemberDao();
 		
-		int result = memberDao.insertMemberInfo(id, pw, pwChk, name, birth, gender, email, phoneNum);
-		int result2 = memberDao.insertJoinDate(id);
+		int result = memberDao.insertMemberInfo(id, encPw, encPwChk, name, birth, gender, email, phoneNum);
+		memberDao.insertJoinDate(id);
+		
+		memberDao.insertAgreeCheck(id, agree1, agree2, agree3);
 		
 		if(result == 1){
 	%>

@@ -8,7 +8,7 @@
 </head>
 <body>
     <div>
-      <fieldset>
+      <form name='joinAgreeForm' action='JoinMember.jsp' method='post'>
         <h1>약관 동의</h1>
         <div>
           <img src="" alt="">
@@ -20,7 +20,7 @@
             <h4>모두 동의<input type="checkbox" id="agreeAll"></h4>
           </section>
           <section>
-            <h4>홈페이지 이용약관 동의<span>(필수)</span><input type="checkbox" id="agree1"></h4>
+            <h4>홈페이지 이용약관 동의<span>(필수)</span><input type="checkbox" id="agree1" name="agree" value="1"></h4>
 
             <div>
               <p>본 약관은 오컴퍼니 홈페이지 서비스 이용과 관련하여 필요한 사항을 규정합니다.<br><br>
@@ -42,7 +42,7 @@
           </section>
 
           <section>
-            <h4>개인정보 수집 및 이용동의<span>(필수)</span><input type="checkbox" id="agree2"></h4>
+            <h4>개인정보 수집 및 이용동의<span>(필수)</span><input type="checkbox" id="agree2" name="agree" value="2"></h4>
             <div>
               <p>
                 본인은 오컴퍼니를 운영하는 주식회사 오컴퍼니(이하 '회사'라 합니다)가 제공하는 회원 서비스(이하 ‘서비스’라 합니다)를 이용하기 위해, 다음과 같이 ‘회사’가 본인의 개인정보를
@@ -64,7 +64,7 @@
           </section>
 
           <section>
-            <h4>광고성 정보 수신동의<span>(선택)</span><input type="checkbox" id="agree3"></h4>
+            <h4>광고성 정보 수신동의<span>(선택)</span><input type="checkbox" id="agree3" name="agree" value="3"></h4>
             <div>
               <p>
                 목적 : 마케팅 정보 활용(상품정보 및 행사 정보 안내 등)<br>
@@ -84,7 +84,7 @@
 
         </div>
         <button type="button" onclick="joinNext()">다음</button>
-      </fieldset>
+      </form>
 
     </div>
     
@@ -93,6 +93,7 @@
     	let agree1 = document.getElementById('agree1');
     	let agree2 = document.getElementById('agree2');
     	let agree3 = document.getElementById('agree3');
+    	let form = document.joinAgreeForm;
     	
     	agreeAll.addEventListener('click', function () {
             if (agreeAll.checked) {
@@ -108,7 +109,7 @@
     	
     	function joinNext(){
     		if (agree1.checked && agree2.checked) {
-    	        location.href = 'JoinMember.jsp';
+    	        form.submit();
     	    } else {
 				alert('필수 약관에 동의해주세요');
     	    }

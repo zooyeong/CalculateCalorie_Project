@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
     
 <%@ page import="park.dao.MemberDao" %>
+<%@ page import="park.oracle.AES256" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,8 +15,11 @@
 		String user_pw = request.getParameter("pw");
 		
 		MemberDao memberDao = new MemberDao();
+		AES256 aes256 = new AES256();
 		
-		boolean result = memberDao.pwCheck(user_id, user_pw);
+		String encPw = aes256.encrypt(user_pw);
+		
+		boolean result = memberDao.pwCheck(user_id, encPw);
 		
 		if(result){
 			memberDao.updateStatus3(user_id);

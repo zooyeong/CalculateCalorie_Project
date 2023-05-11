@@ -8,6 +8,25 @@
 </head>
 <body>
 	<form name='joinMemberForm' action='JoinMember_proc.jsp' method='post'>
+		<%
+			String[] values = request.getParameterValues("agree");
+		
+			for(String val : values){
+				if(values.length == 2){
+		%>
+					<input type="hidden" name="agree1" value="Y">
+					<input type="hidden" name="agree2" value="Y">
+					<input type="hidden" name="agree3" value="N">
+		<%
+				} else{
+		%>
+					<input type="hidden" name="agree1" value="Y">
+					<input type="hidden" name="agree2" value="Y">
+					<input type="hidden" name="agree3" value="Y">
+		<%
+				}
+			}
+		%>
 		<div>
 			<label for="inputId">아이디</label>
 			<input type="text" id="inputId"
@@ -61,9 +80,13 @@
         	<input type="radio" id="F" name="gender" value="F">
         	<span>여자</span></label><br>
 		</div>
+<%-- 		<input type="hidden" name="agree" value="<%=values[0] %>"> --%>
+<%-- 		<input type="hidden" name="agree" value="<%=values[0] %>"> --%>
+<%-- 		<input type="hidden" name="agree" value="<%=values[0] %>"> --%>
 		
 		<button id="joinBtn" type="button">가입</button>
 		<button id="cancelBtn" type="button">취소</button>
+		
 	</form>
 	
 	<script>
@@ -115,24 +138,6 @@
 					form.submit();
 				}
 			}
-			
-			//pw 정규식
-			
-			
-// 			if(!reg.test(inputPw.value)){
-// 				alert("비밀번호는 8자 이상, 숫자, 대문자, 소문자, 특수문자를 모두 포함해야 합니다");
-// 				inputPw.focus();
-// 			}
-			
-// 			if("(\w)\1\1\1".test(inputPw.value)){
-// 				alert("같은 문자를 4번 이상 연속해서 사용할 수 없습니다");
-// 				inputPw.focus();
-// 			}
-			
-// 			if(inputPw.value.search(" ") != -1){
-// 				alert("비밀번호는 공백을 포함할 수 없습니다");
-// 				inputPw.focus();
-// 			}
 		});
 		
 		document.getElementById('cancelBtn').addEventListener('click', ()=>{

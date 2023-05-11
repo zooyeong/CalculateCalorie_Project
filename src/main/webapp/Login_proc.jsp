@@ -4,6 +4,7 @@
 <%@ page import="park.dao.MemberDao" %>
 <%@ page import="park.dto.MemberDto" %>
 <%@ page import="park.dto.ManageDto" %>
+<%@ page import="park.oracle.AES256" %>
 <%@ page import="java.util.*" %>
 <%@ page import="java.text.SimpleDateFormat" %>
 <%@ page import="java.sql.Timestamp" %>
@@ -44,9 +45,13 @@
 		} else{
 			switch(status){
 			case 1:
-				if(memberDto.getPassword().equals(pw)){
+				AES256 aes256 = new AES256();
+				String encPw = aes256.encrypt(pw);
+				
+				if(memberDto.getPassword().equals(encPw)){
 					session.setAttribute("user_id", id);
 					session.setAttribute("user_name", memberDto.getName());
+					session.setMaxInactiveInterval(3600); //1시간
 	%>
 					<script>
 						alert('로그인 성공');

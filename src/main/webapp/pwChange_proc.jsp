@@ -3,6 +3,7 @@
     
 <%@ page import="park.dao.MemberDao" %>
 <%@ page import="park.dto.MemberDto" %>
+<%@ page import="park.oracle.AES256" %>
 <%@ page import="java.util.*" %>
 <%@ page session = "true" %>
 <%@ page import="java.text.SimpleDateFormat" %>
@@ -21,14 +22,17 @@
 		
 		String user_pw = request.getParameter("pw");
 		String user_pwNew = request.getParameter("pwNew");
-		String user_pwChk = request.getParameter("pwChk");
 		
 		MemberDao memberDao = new MemberDao();
+		AES256 aes256 = new AES256();
+			
+		String encPw = aes256.encrypt(user_pw);
+		String encPwNew = aes256.encrypt(user_pwNew);
 		
-		boolean result = memberDao.pwCheck(user_id, user_pw);
+		boolean result = memberDao.pwCheck(user_id, encPw);
 		
 		if(result){
-			int updateResult = memberDao.updatePassword(user_id, user_pwNew);
+			int updateResult = memberDao.updatePassword(user_id, encPwNew);
 			
 			if(updateResult == 1){
 	%>
