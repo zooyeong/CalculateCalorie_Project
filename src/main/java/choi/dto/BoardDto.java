@@ -6,7 +6,8 @@ public class BoardDto {
 	 int user_id;
 	 int post_no;
 	 String title;
-	 String content;
+	 String content_text;
+	 String content_img;
 	 Date created_date;
 	 Date updated_date;
 	 int views;
@@ -31,12 +32,20 @@ public class BoardDto {
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	public String getContent() {
-		return content;
+	public String getContent_text() {
+		return content_text;
 	}
-	public void setContent(String content) {
-		this.content = content;
+	public void setContent_text(String content_text) {
+		this.content_text = content_text;
 	}
+	
+	public String getContent_img() {
+		return content_img;
+	}
+	public void setContent_img(String content_img) {
+		this.content_img = content_img;
+	}
+	
 	public Date getCreated_date() {
 		return created_date;
 	}
