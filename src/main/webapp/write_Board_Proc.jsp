@@ -15,6 +15,9 @@
 <body>
 
 <%
+  String title = request.getParameter("title");
+
+
   String content = request.getParameter("content");
   String path = "/upload/"; // 이미지를 저장할 경로
   String imgRegex = "data:image\\/([a-zA-Z]*);base64,([^\"]*)"; // 이미지 데이터 추출용 정규식
@@ -40,7 +43,7 @@
 <%
 
 BoardDao boardDao = new BoardDao();
-int result = boardDao.insertBoard(text, imgTag); // 이미지 경로 태그와 함께 DB에 저장
+int result = boardDao.insertBoard(title, text, imgTag); // 이미지 경로 태그와 함께 DB에 저장
 
 %>
 </body>

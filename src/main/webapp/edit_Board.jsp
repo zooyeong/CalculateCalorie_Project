@@ -5,6 +5,9 @@
 <%@ page import="choi.dao.BoardDao"%>
 <%@ page import="choi.dto.CategoryDto"%>
 <%@ page import="choi.dao.CategoryDao"%>
+	<%@ page import="java.io.FileInputStream,java.io.IOException"%>
+	<%@ page import="org.apache.commons.codec.binary.Base64"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -47,6 +50,15 @@
 <!-- Include stylesheet -->
 <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
 
+<%
+    // 게시글 번호를 받아옴
+    int post_no = Integer.parseInt(request.getParameter("post_no"));
+    
+    // 해당 번호의 게시글을 DB에서 가져옴
+    BoardDao boardDao = new BoardDao();
+    BoardDto boardDto = boardDao.board_Read(post_no);
+%>
+
 
 <div class="write_container">
 
@@ -84,6 +96,8 @@
 
 <!-- Initialize Quill editor -->
 <script>
+
+
   var quill = new Quill('#editor-container', {
     modules: {
       toolbar: [
@@ -95,7 +109,14 @@
     placeholder: 'Compose an epic...',
     theme: 'snow'
   });
- 
+  
+  
+  
+	var contentText = "<%=boardDto.getContent_text()%>";
+	var editorContent = contentText; // 이미지 태그 포함된 문자열
+	quill.clipboard.dangerouslyPasteHTML(editorContent); // Quill 에디터에 문자열 삽입
+	
+
   var form = document.querySelector('form');
   form.onsubmit = function() {
     var content = document.querySelector('#editor-container .ql-editor').innerHTML;
