@@ -6,6 +6,8 @@
 <%@ page import="com.oreilly.servlet.MultipartRequest"%>
 <%@ page import="com.oreilly.servlet.multipart.DefaultFileRenamePolicy"%>
 <%@ page import="java.util.*"%>
+<%@ page import="choi.dto.CategoryDto"%>
+<%@ page import="choi.dao.CategoryDao"%>
 
 
 <%
@@ -25,8 +27,6 @@ try {
 	fileename1 = multi.getFilesystemName(file1);
 	//out.println("Uploaded file path: " + uploadPath + "/" + fileename1);
 	
-	String file2 = (String) files.nextElement();
-	filename2 = multi.getFilesystemName(file2);
 } catch (Exception e) {
 	e.printStackTrace();
 }
@@ -36,8 +36,75 @@ try {
 <!DOCTYPE html>
 
 <head>
+<link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+  <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
 <meta charset="UTF-8">
 <title>게시글 등록 & 수정 페이지</title>
+<style>
+
+.filebox label {
+  display: flex; /* 수평/수직 가운데 정렬 적용 */
+  justify-content: center;
+  align-items: center; /* 수직 가운데 정렬 적용 */
+  color: #fff;
+  background-color: #999999;
+  cursor: pointer;
+  height: 40px;
+  width: 1130px;
+}
+
+.filebox input[type="file"] {
+    position: absolute;
+    width: 0;
+    height: 0;
+    padding: 0;
+    overflow: hidden;
+    border: 0;
+}
+
+#editor-container {
+	height:500px;
+	width:1130px;
+}
+
+.ql-toolbar {
+  width: 1130px;
+}
+
+.custom-btn {
+  width: 130px;
+  height: 40px;
+  border-radius: 5px;
+  background: transparent;
+  cursor: pointer;
+   box-shadow:inset 2px 2px 2px 0px rgba(255,255,255,.5),
+   7px 7px 20px 0px rgba(0,0,0,.1),
+   4px 4px 5px 0px rgba(0,0,0,.1);
+}
+
+.bodyContainer {
+	width: 100%;
+	display:flex;
+}
+
+#preview1 {
+  width: 200px;
+  height: 200px;
+  overflow: hidden; /* 크기를 벗어나는 부분은 숨기도록 지정 */
+}
+
+#preview1 img {
+  max-width: 90%;
+  max-height: 90%;
+}
+
+.delete-button{
+width:100px;
+height:100px;
+}
+
+
+</style>
 <script src="https://cdn.ckeditor.com/ckeditor5/37.0.1/classic/ckeditor.js"></script>
 
 
@@ -45,37 +112,50 @@ try {
 
 
 <body>
-	
+
+	<div class="bodyContainer">
+
+	<input type="button" value="카테고리 설정" onclick="window.open('category_Main.jsp', '카테고리 설정', 'width=400,height=400'); return false;">
+
+	<select>
+    <% CategoryDao categoryDao = new CategoryDao();
+    List<CategoryDto> categoryList = categoryDao.categoryList();
+    for(CategoryDto categoryDto : categoryList){ %>
+    <option>카테고리 선택</option>
+    <option><%=categoryDto.getCategory2()%></option>
+    <option><%=categoryDto.getCategory3()%></option>
+    <option><%=categoryDto.getCategory4()%></option>
+    <option><%=categoryDto.getCategory5()%></option>
+    <% } %>
+</select>
+<form name="write_form" action='write_proc.jsp' method="post" enctype="multipart/form-data"  accept-charset="UTF-8">
+
+<input type="text" name="title" id="title" placeholder="제목" />
+</div>
+
+
+
+<!-- Create the editor container -->
 <div id="editor-container"></div>
 
+<input type="hidden" name="content" id="content" />
 
 
 
-<form name="write_form" action='write_proc.jsp' method="post" enctype="multipart/form-data"  accept-charset="UTF-8">
-		<div class="board_writer_container">
-
-
-
-
-
-
-  <div>
-    <input type="file" name="fileename1" onchange="previewImage(event, 'preview1')">
-    <input type="file" name="filename2" onchange="previewImage(event, 'preview2')">
+  <div class="filebox">
+    <label for="fileename1">이미지첨부</label> 
+    <input type="file" name="fileename1" onchange="previewImage(event, 'preview1')" id="fileename1">
   </div>
 
 
 <div id="preview1"></div>
-<div id="preview2"></div>
 
-			
-				<input type="submit" id="insertBtn" value="작성완료">
-</div>
 
-	</form>
+<input type="submit" value="등록"  class="bTn custom-btn" />
+<input type="button" value="취소" class="bTn custom-btn" onclick="window.location.href='https://www.naver.com'" />
+</form>
 
-<!-- Include the Quill library -->
-<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+
 <!-- Initialize Quill editor -->
 <script>
   var quill = new Quill('#editor-container', {
@@ -97,8 +177,7 @@ try {
 </script>
 
 
-
-	<script>
+<script>
 	document.getElementById('insertBtn').addEventListener('click', () => {
 		
 	    let form = document.personAddForm;
@@ -143,6 +222,7 @@ try {
 		    const cancelButton = document.createElement('button');
 		    cancelButton.type = 'button';
 		    cancelButton.textContent = '삭제';
+		    cancelButton.className = 'delete-button';
 		    cancelButton.onclick = function() {
 		      removeImage(container);
 		    };
@@ -178,6 +258,9 @@ try {
 		    content.value = content.value.replace('<img src="' + container.imagePath + '">', '');
 		  }
 		}
+		
+	
+		
 	</script>
 
 </body>
