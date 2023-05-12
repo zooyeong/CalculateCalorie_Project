@@ -5,28 +5,36 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="park_css.css">
 <style>
-	input{
-		width:100%
-	}
+#container a{
+  margin: 10px;
+}
+#container p{
+  margin: 10px;
+}
 </style>
 </head>
 <body>
-	<h1>로그인</h1>
-	<form name='loginForm' action='Login_proc.jsp' method='post'>	
-		<label for="id">아이디</label>
-	    <input type="text" id="id" name="id" placeholder="id">
-	    <label for="pw">비밀번호</label>
-	    <input type="password" id="pw" name="pw" placeholder="password">
-	    
-	    <button id="loginBtn" type="button">로그인</button>
-		<button id="cancelBtn" type="button">취소</button><br>
-		<a href="javascript:kakaoLogin()"><img src="img_park/kakao_login_medium_narrow.png"></a>
-		<br>
-		<a href="selectId.jsp">아이디찾기</a>
-		<a href="">비밀번호찾기</a>
-		<a href="joinAgree.jsp">회원가입</a>
-	</form>
+<%@ include file = "header.jsp" %>
+	<div id="container">
+		<h1>로그인</h1>
+		<form name='loginForm' action='Login_proc.jsp' method='post'>	
+			<label for="id">아이디</label>
+		    <input type="text" id="id" name="id" placeholder="id"><br>
+		    <label for="pw">비밀번호</label>
+		    <input type="password" id="pw" name="pw" placeholder="password"><br>
+		    
+		    <button id="loginBtn" type="button">로그인</button>
+			<button id="cancelBtn" type="button">취소</button><br>
+			<a href="javascript:kakaoLogin()"><img src="img_park/kakao_login_medium_narrow.png"></a>
+			<br>
+			<p>또는</p>
+			<a href="selectId.jsp">아이디찾기</a>
+			<a href="selectPw.jsp">비밀번호찾기</a>
+			<a href="joinAgree.jsp">회원가입</a>
+		</form>
+	</div>
 	
 	<form name='kakaologinForm' action='Login_kakao_proc.jsp' method='post'>
 		<input type="hidden" name="kakaoId" id="kakaoId">

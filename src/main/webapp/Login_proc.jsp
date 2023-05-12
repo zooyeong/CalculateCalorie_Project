@@ -77,7 +77,7 @@
 					}else{
 	%>
 						<script>
-							location.href = 'tempMain.jsp'; //로그인 성공 -> 메인페이지로 이동(수정해야함)
+							location.href = 'header.jsp'; //로그인 성공 -> 메인페이지로 이동(수정해야함)
 						</script>	
 	<%				
 					}

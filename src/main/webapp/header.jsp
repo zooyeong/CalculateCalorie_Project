@@ -60,33 +60,24 @@ button{
 %>
 
 	<div id="header">
-		<div id="logo"></div>
+		<div id="logo"><a href="header.jsp">로고</a></div> <!-- 메인으로 이동(수정해야함) -->
 		<div id="nav">		
 			<ul>
 				<li class="nav_item" id="login"><a href="Login.jsp">로그인</a></li>
 				<li class="nav_item" id="user_name" style="display: none"><span><%=user_name%> 님</span></li>
 				<li id="logout" style="display: none"><form name="logoutCheckForm" action="logout_proc.jsp" method="post"><button type="button" id="logoutBtn">로그아웃</button></form>
-				<li class="nav_item"><a href="mypage_loginChk.jsp">마이페이지</a></li>
+				<li class="nav_item"><a href="mypage.jsp">마이페이지</a></li>
 				<li class="nav_item"><a href="joinAgree.jsp">회원가입</a></li>
 				<li class="nav_item"><a href="">고객센터</a></li>
 			</ul>
 		</div>
 	</div>
 	
-
-	
-<%-- 			<p>아이디</p> "<%=user_id%>" --%>
 <%
 	boolean login = user_id == null ? false : true;
 	
 	if(login){
 %>
-<%-- 		<span><%=user_name%> 님 환영합니다.</span> --%>
-			
-<!-- 		<form name="logoutCheckForm" action="logout_proc.jsp" method="post"> -->
-<!-- 			<button type="button" id="logoutBtn">로그아웃</button> -->
-<!-- 		</form> -->
-	
 		<script>
 			document.getElementById('login').style.display='none';
 			document.getElementById('user_name').style.display='inline-block';

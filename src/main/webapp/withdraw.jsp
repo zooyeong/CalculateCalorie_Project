@@ -5,15 +5,19 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="park_css.css">
 </head>
 <body>
-	<h1>비밀번호 확인</h1>
-	<form name='withdrawForm' action='withdraw_proc.jsp' method='post'>
-		<label for="pw">현재 비밀번호</label>
-		<input type="password" id="pw" name="pw" placeholder="password"><br>
-		<button id="withdrawBtn" type="button" onclick="pwCheck()">회원탈퇴</button>
-		<button id="cancleBtn" type="button" onclick="location.href='mypage.jsp'">탈퇴취소</button>
-	</form>
+<%@ include file = "header.jsp" %>
+	<div id="container">	
+		<h1>비밀번호 확인</h1>
+		<form name='withdrawForm' action='withdraw_proc.jsp' method='post'>
+			<label for="pw">현재 비밀번호</label>
+			<input type="password" id="pw" name="pw" placeholder="password"><br>
+			<button id="withdrawBtn" type="button" onclick="pwCheck()">회원탈퇴</button>
+			<button id="cancleBtn" type="button" onclick="location.href='mypage.jsp'">탈퇴취소</button>
+		</form>
+	</div>
 	
 	<script>
 		function pwCheck(){

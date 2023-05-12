@@ -54,7 +54,7 @@
 		</script>
 	<% } %>
 		<script>
-			location.href = 'tempMain.jsp'; //메인페이지로 이동(수정해야함)
+			location.href = 'Login.jsp';
 		</script>	
 </body>
 </html>

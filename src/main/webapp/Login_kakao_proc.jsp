@@ -14,7 +14,7 @@
 	String kakaoNickname = request.getParameter("kakaoNickname");
 	session.setAttribute("user_id", kakaoId);
 	session.setAttribute("user_name", kakaoNickname);
-	response.sendRedirect("tempMain.jsp");
+	response.sendRedirect("header.jsp");
 %>
 </body>
 </html>

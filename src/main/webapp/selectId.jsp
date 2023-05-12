@@ -5,19 +5,22 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="park_css.css">
 </head>
 <body>
-	<h1>아이디 찾기</h1>
-	<form name='selectIdForm' action='selectId_proc.jsp' method='post'>	
-		<label for="inputName">이름</label>
-		<input type="text" id="inputName"
-			name="name" placeholder="이름을 입력해주세요"><br>
-	    <label for="inputPhoneNum">휴대폰번호</label>
-		<input type="text" id="inputPhoneNum" name="phoneNum" placeholder="-없이 숫자만 입력">
-		<br>
-		<button type="button" onclick="selectId_func()">아이디 찾기</button>
-	</form>
-	
+<%@ include file = "header.jsp" %>
+	<div id="container">
+		<h1>아이디 찾기</h1>
+		<form name='selectIdForm' action='selectId_proc.jsp' method='post'>	
+			<label for="inputName">이름</label>
+			<input type="text" id="inputName"
+				name="name" placeholder="이름을 입력해주세요"><br>
+		    <label for="inputPhoneNum">휴대폰번호</label>
+			<input type="text" id="inputPhoneNum" name="phoneNum" placeholder="-없이 숫자만 입력">
+			<br>
+			<button type="button" onclick="selectId_func()">아이디 찾기</button>
+		</form>
+	</div>
 	<script>
 		function selectId_func(){
 			let inputName = document.getElementById('inputName');

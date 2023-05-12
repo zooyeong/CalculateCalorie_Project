@@ -25,7 +25,7 @@
 		
 	%>
 	<script>
-		location.href = "tempMain.jsp";	
+		location.href = "header.jsp";	
 	</script>
 </body>
 </html>
