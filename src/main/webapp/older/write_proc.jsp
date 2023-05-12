@@ -1,50 +1,31 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ page import="java.util.List"%>
 <%@ page import="choi.dto.BoardDto"%>
 <%@ page import="choi.dao.BoardDao"%>
-<%@ page import="java.io.*, java.util.*, javax.servlet.*" %>
-<%@ page import="javax.servlet.http.*" %>
-
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
-d
-	
+<%@ page import="java.util.*"%>
+<%@ page import="java.io.*"%>
+<%@ page import="com.oreilly.servlet.*"%>
+<%@ page import="com.oreilly.servlet.multipart.*"%>
 
 <%
-		request.setCharacterEncoding("UTF-8"); //한글 정상 인식을 위해
-		BoardDao boardDao = new BoardDao();
-	
-		Part filePart1 = request.getPart("fileename1");
-		Part filePart2 = request.getPart("filename2");
-		
-		String title = null;
-		String content = null;
-		   Collection<Part> parts = request.getParts();
-		   for (Part part : parts) {
-		      String name = part.getName();
-		      if (name.equals("title")) {
-		         title = new Scanner(part.getInputStream())
-		               .useDelimiter("\\A").next();
-		      } else if (name.equals("content")) {
-		         content = new Scanner(part.getInputStream())
-		               .useDelimiter("\\A").next();
-		      }
-		   }
-		
-		out.println("제목: " + title + "<br>");
-		out.println("내용: " + content + "<br>");
-		
-		
-	%>
-	<script> location.href = './select_Board2.jsp';</script>
+String uploadPath = request.getRealPath("upload");
+int maxFileSize = 10 * 1024 * 1024; // 최대 파일 크기 설정
+String encoding = "UTF-8"; // 인코딩 설정
+
+MultipartRequest multi = new MultipartRequest(request, uploadPath, maxFileSize, encoding, new DefaultFileRenamePolicy());
+
+Enumeration files = multi.getFileNames();
+
+String file1 = (String) files.nextElement();
+String fileName1 = multi.getFilesystemName(file1);
+
+String file2 = (String) files.nextElement();
+String fileName2 = multi.getFilesystemName(file2);
+
+// DB에 저장할 파일 경로 설정
+String filePath1 = "upload/" + fileName1;
+String filePath2 = "upload/" + fileName2;
 
 
-
-
-</body>
-</html>
+%>
