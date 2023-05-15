@@ -9,12 +9,21 @@
 	<title>게시물 뷰 페이지</title>
 </head>
 <body>
+<%@ include file = "header.jsp" %>
+<%
+	request.setCharacterEncoding("UTF-8");
+	
+	session = request.getSession();
+	String userId2 = (String)session.getAttribute("user_id");
+	String userId = request.getParameter("user_id");
+%>
+
 <%
   // URL로부터 post_no 파라미터 값을 가져옴
   int post_no = Integer.parseInt(request.getParameter("post_no"));
 
   BoardDao boardDao = new BoardDao();
-  BoardDto boardDto = boardDao.board_Read(post_no);
+  BoardDto boardDto = boardDao.board_Read(post_no, userId);
   BoardDto viewsUp = boardDao.viewsUp(post_no);
 %>
 	<h1>제목: <%= boardDto.getTitle() %></h1>
@@ -27,9 +36,21 @@
 
 
 <button id="likeBtn">좋아요</button>
-<a href="edit_Board.jsp?post_no=<%=post_no%>">수정</button>
-<button id="delBtn">삭제</button>
+<% if (userId2.equals(userId)) { %>
+  <a href="edit_Board.jsp?post_no=<%=post_no%>&user_id=<%=userId%>">수정</a>
+  <button id="delBtn">삭제</button>
+<% } %>
 <button id="listMove">글 목록</button>
+
+
+
+
+
+
+
+
+
+
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>

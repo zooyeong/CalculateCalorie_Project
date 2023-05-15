@@ -10,6 +10,7 @@
 <%@ page import="choi.dao.CategoryDao"%>
 
 
+
 <%
 String uploadPath = request.getRealPath("upload");;
 
@@ -113,6 +114,38 @@ height:100px;
 
 <body>
 
+<%@ include file = "header.jsp" %>
+<%
+	request.setCharacterEncoding("UTF-8");
+	
+	session = request.getSession();
+	String userId = request.getParameter("user_id");
+	String userId2 = (String)session.getAttribute("user_id");
+%>
+<%
+  if(userId2 == null) {
+%>
+  <script>
+    alert("로그인 하십시오.");
+    location.href = "Login.jsp";
+  </script>
+<%
+    return;
+  }
+%>
+
+
+<% if (!userId2.equals(userId)) { %>
+  <script>
+    alert("접근할 수 없습니다.");
+    location.href = "Login.jsp";
+  </script>
+<%
+    return;
+  }
+%>
+
+
 	<div class="bodyContainer">
 
 	<input type="button" value="카테고리 설정" onclick="window.open('category_Main.jsp', '카테고리 설정', 'width=400,height=400'); return false;">
@@ -128,7 +161,7 @@ height:100px;
     <option><%=categoryDto.getCategory5()%></option>
     <% } %>
 </select>
-<form name="write_form" action='write_proc.jsp' method="post" enctype="multipart/form-data"  accept-charset="UTF-8">
+<form name="write_form" id="write_form" action='write_proc.jsp' method="post" enctype="multipart/form-data"  accept-charset="UTF-8">
 
 <input type="text" name="title" id="title" placeholder="제목" />
 </div>
@@ -169,11 +202,10 @@ height:100px;
     theme: 'snow'
   });
  
-  var form = document.querySelector('form');
-  form.onsubmit = function() {
-    var content = document.querySelector('#editor-container .ql-editor').innerHTML;
-    document.querySelector('#content').value = content;  
-  }
+  document.querySelector('#write_form').onsubmit = function() {
+	    var content = quill.root.innerHTML;
+	    document.querySelector('#content').value = content;
+	  };
 </script>
 
 

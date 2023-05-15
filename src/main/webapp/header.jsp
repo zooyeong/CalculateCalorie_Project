@@ -68,6 +68,7 @@ button{
 				<li id="logout" style="display: none"><form name="logoutCheckForm" action="logout_proc.jsp" method="post"><button type="button" id="logoutBtn">로그아웃</button></form>
 				<li class="nav_item"><a href="mypage.jsp">마이페이지</a></li>
 				<li class="nav_item"><a href="joinAgree.jsp">회원가입</a></li>
+				<li class="nav_item"><a href="list_Board.jsp?user_id=<%=user_id%>">다이어리</a></li>
 				<li class="nav_item"><a href="">고객센터</a></li>
 			</ul>
 		</div>

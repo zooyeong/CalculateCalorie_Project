@@ -3,7 +3,7 @@ package choi.dto;
 import java.sql.Date;
 
 public class BoardDto {
-	 int user_id;
+	 String user_id;
 	 int post_no;
 	 String title;
 	 String content_text;
@@ -14,10 +14,10 @@ public class BoardDto {
 	 int total_like;
 	 int count_like;
 	 
-	public int getUser_id() {
+	public String getUser_id() {
 		return user_id;
 	}
-	public void setUser_id(int user_id) {
+	public void setUser_id(String user_id) {
 		this.user_id = user_id;
 	}
 	public int getPost_no() {

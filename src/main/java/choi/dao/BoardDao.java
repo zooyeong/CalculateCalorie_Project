@@ -13,7 +13,7 @@ import choi.oracle.DBConnectionManager;
 public class BoardDao {
 	
 	//select
-	public List<BoardDto> boardInfoList(){
+	public List<BoardDto> boardInfoList(String userId){
 		Connection conn = null;
 		PreparedStatement psmt = null;
 		ResultSet rs = null;
@@ -21,11 +21,13 @@ public class BoardDao {
 		
 		try {
 			conn = DBConnectionManager.getConnection();
-
+			
 			String sql = "select *"
-					+ " from board";
+					+ " from board WHERE user_id = ?";
+			
 
 			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, userId);
 
 			rs = psmt.executeQuery(); 
 			
@@ -33,7 +35,7 @@ public class BoardDao {
 			while(rs.next()) {
 			    BoardDto boardDto = new BoardDto();
 			    
-			    boardDto.setUser_id(rs.getInt("user_id"));
+			    boardDto.setUser_id(rs.getString("user_id"));
 			    boardDto.setPost_no(rs.getInt("post_no"));
 			    boardDto.setTitle(rs.getString("title"));
 			    boardDto.setContent_text(rs.getString("content_text"));
@@ -57,7 +59,7 @@ public class BoardDao {
 	}
 	
 	
-	public BoardDto board_Read(int post_no) {
+	public BoardDto board_Read(int post_no, String useriD) {
 		Connection conn = null;
 		PreparedStatement psmt = null;
 		ResultSet rs = null;
@@ -68,17 +70,18 @@ public class BoardDao {
 			conn = DBConnectionManager.getConnection();
 
 			String sql = "select *"
-					+ " from board WHERE post_no = ?";
+					+ " from board WHERE post_no = ? and user_id = ? ";
 
 			psmt = conn.prepareStatement(sql);
 			psmt.setInt(1, post_no);
+			psmt.setString(2, useriD);
 
 			rs = psmt.executeQuery();
 
 			if(rs.next()) {
 				boardDto = new BoardDto();
 				
-			    boardDto.setUser_id(rs.getInt("user_id"));
+				boardDto.setUser_id(rs.getString("user_id"));
 			    boardDto.setPost_no(rs.getInt("post_no"));
 			    boardDto.setTitle(rs.getString("title"));
 			    boardDto.setContent_text(rs.getString("content_text"));
@@ -122,7 +125,7 @@ public class BoardDao {
 			if(rs.next()) {
 				boardDto = new BoardDto();
 				
-			    boardDto.setUser_id(rs.getInt("user_id"));
+				boardDto.setUser_id(rs.getString("user_id"));
 			    boardDto.setPost_no(rs.getInt("post_no"));
 			    boardDto.setTitle(rs.getString("title"));
 			    boardDto.setContent_text(rs.getString("content_text"));
@@ -166,7 +169,7 @@ public class BoardDao {
 			if(rs.next()) {
 				boardDto = new BoardDto();
 				
-			    boardDto.setUser_id(rs.getInt("user_id"));
+				boardDto.setUser_id(rs.getString("user_id"));
 			    boardDto.setPost_no(rs.getInt("post_no"));
 			    boardDto.setTitle(rs.getString("title"));
 			    boardDto.setContent_text(rs.getString("content_text"));
@@ -188,8 +191,8 @@ public class BoardDao {
 		return boardDto;
 	}
 	
-	
-	public int insertBoard(String title, String content_text, String content_img) {
+	//글 쓰기
+	public int insertBoard(String userId, String title, String content_text, String content_img) {
 
 		Connection conn = null;
 		PreparedStatement psmt = null;
@@ -199,13 +202,15 @@ public class BoardDao {
 			conn = DBConnectionManager.getConnection();
 
 			// 쿼리문!
-			String sql = "insert into board(user_id, post_no, title, content_text, content_img, views)"
-						+" values('123', (select max(post_no) + 1 from board), ?, ?, ?, 1)";
-
+			String sql = "insert into board (user_id, post_no, title, content_text, content_img, views, total_like) "
+			           + "values (?, (select COALESCE(max(post_no), 0) + 1 from board where user_id = ?), ?, ?, ?, 0, 0)";
+			
 			psmt = conn.prepareStatement(sql);
-			psmt.setString(1, title);
-			psmt.setString(2, content_text);
-			psmt.setString(3, content_img);
+			psmt.setString(1, userId);
+			psmt.setString(2, userId);
+			psmt.setString(3, title);
+			psmt.setString(4, content_text);
+			psmt.setString(5, content_img);
 			
 			result = psmt.executeUpdate();
 			
@@ -219,4 +224,68 @@ public class BoardDao {
 		
 		return result;
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	public int updateBoard(String userId, int post, String title, String content_text, String content_img) {
+
+		Connection conn = null;
+		PreparedStatement psmt = null;
+		ResultSet rs = null;
+		int result = 0;
+		try {
+			conn = DBConnectionManager.getConnection();
+
+			// 쿼리문!
+			String sql = "update board set user_id = ?, post_no = ?, title = ?, content_text = ?, content_img = ? where post_no = ? and user_id = ?";
+			
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, userId);
+			psmt.setInt(2, post);
+			psmt.setString(3, title);
+			psmt.setString(4, content_text);
+			psmt.setString(5, content_img);
+			psmt.setInt(6, post);
+			psmt.setString(7, userId);
+			
+			result = psmt.executeUpdate();
+			
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			DBConnectionManager.close(rs, psmt, conn);
+		}
+		
+		return result;
+	}	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

@@ -30,4 +30,8 @@ CREATE TABLE agree_check(
     f0002 VARCHAR2(1) NOT NULL,
     f0003 VARCHAR2(1) NOT NULL,
     agree_date DATE DEFAULT SYSDATE
-);
+)
+;
+
+select *
+from member_info;
