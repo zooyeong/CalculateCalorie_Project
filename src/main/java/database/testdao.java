@@ -25,7 +25,7 @@ public class testdao {
 
 			// 쿼리문!
 			//String sql = "select * from emp where empno = 7566";
-			String sql = "select * from calorie_data2"
+			String sql = "select * from CALORIE_DATA2;"
 					+" WHERE 식품명 = ?";
 
 			psmt = conn.prepareStatement(sql);
@@ -45,7 +45,7 @@ public class testdao {
 				personDto.set단백질(rs.getInt("단백질"));
 				personDto.set지방(rs.getInt("지방"));
 				personDto.set탄수화물(rs.getInt("탄수화물"));
-				personDto.setCALORIE(rs.getInt("CALORIE"));
+				personDto.set칼로리(rs.getInt("칼로리"));
 				
 				testdaInfoList.add(personDto);
 			}
@@ -91,7 +91,7 @@ public class testdao {
 				personDto.set단백질(rs.getInt("단백질"));
 				personDto.set지방(rs.getInt("지방"));
 				personDto.set탄수화물(rs.getInt("탄수화물"));
-				personDto.setCALORIE(rs.getInt("CALORIE"));
+				personDto.set칼로리(rs.getInt("칼로리"));
 			}
 
 			// DB에 쿼리문 실행

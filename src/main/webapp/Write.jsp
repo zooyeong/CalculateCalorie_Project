@@ -21,16 +21,21 @@
 <tbody>
 <tr>
 <td>
-<form method="post" action="bbs.jsp" >
-  <input type="text" class="form-control" placeholder="글 제목" name="bbsTitle" maxlength="50" id="bbsTitle">
+<form method="post" action="bbs.jsp">
+  <input type="text" class="form-control breakfast" placeholder="아침 식사" name="breakfast" maxlength="50">
+  <input type="text" class="form-control lunch" placeholder="점심 식사" name="lunch" maxlength="50">
+  <input type="text" class="form-control dinner" placeholder="저녁 식사" name="dinner" maxlength="50">
+  <input type="text" class="form-control other" placeholder="기타" name="other" maxlength="50">
+  <input type="text" class="form-control snack" placeholder="간식" name="snack" maxlength="50">
+  <input type="submit" class="btn btn-primary pull-right" value="음식 입력">
+</form>
 </tr>
 <tr>
 <!--  <td><textarea class="form-control" placeholder="글 내용" name="bbsContent" maxlength="2500" style="height:350px;"></textarea></td> 		-->
 </tr>
 </tbody>
 </table>
-<input type="submit" class="btn btn-primary pull-right" value="칼로리 입력">
-</form>
+
 </div>
 </div>
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>

@@ -1,3 +1,4 @@
+
 package database;
 
 public class testdto {
@@ -8,7 +9,7 @@ public class testdto {
 	int 단백질;
 	int 지방;
 	int 탄수화물;
-	int CALORIE;
+	int 칼로리;
 	public int getNO() {
 		return NO;
 	}
@@ -51,11 +52,11 @@ public class testdto {
 	public void set탄수화물(int 탄수화물) {
 		this.탄수화물 = 탄수화물;
 	}
-	public int getCALORIE() {
-		return CALORIE;
+	public int get칼로리() {
+		return 칼로리;
 	}
-	public void setCALORIE(int CALORIE) {
-		CALORIE = CALORIE;
+	public void set칼로리(int 칼로리) {
+		this.칼로리 = 칼로리;
 	}
 	
 }
