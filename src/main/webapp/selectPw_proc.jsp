@@ -10,8 +10,16 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="park_css.css">
+<link rel="stylesheet" href="park_align_css.css">
+<style>
+#container{text-align:center;}
+#container button{width:30%; height:50px; font-size:1.5rem; cursor:pointer;}
+#container p{margin:50px;}
+</style>
 </head>
 <body>
+<%@ include file = "header.jsp" %>
 <%
 	request.setCharacterEncoding("UTF-8");
 
@@ -40,8 +48,12 @@
 		
 		String resultPw = decPw.substring(0,4) + answer;
 %>
-		<p>회원가입 시 사용한 비밀번호는 <%=resultPw %> 입니다.</p>
-		<a href="Login.jsp">로그인하러 가기</a>
+<%@ include file = "align.jsp" %>
+		<div id="container" style="height:600px; padding-top:50px;">
+			<h1>비밀번호 찾기 결과</h1>
+			<p>회원가입 시 사용한 비밀번호는 <span style="font-weight:bold;"> <%=resultPw %> </span>입니다.</p>
+			<button type="button" onclick="location.href='Login.jsp'">로그인하러 가기</button>
+		</div>
 <%	
 	}else{
 %>
@@ -52,5 +64,6 @@
 <%
 	}
 %>
+<%@ include file = "footer.jsp" %>
 </body>
 </html>

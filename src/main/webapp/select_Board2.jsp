@@ -124,9 +124,6 @@ height:30px;
 #catesele{
 height:30px;
 }
-#catesele1 {
-height:30px;
-}
 
 .wc{
 	display:flex;
@@ -134,6 +131,10 @@ height:30px;
   align-items: center;
   margin-bottom: 30px;
   gap:30px;
+}
+
+#catesele1 {
+height:30px;
 }
 
 
@@ -177,12 +178,8 @@ height:30px;
   }
 %>
 
-<% 
-String postNoParam = request.getParameter("post_no");
-int post = Integer.parseInt(postNoParam);
-%>
 
-<form name="write_form" id="write_form" action='write_Board_Proc.jsp?post_no=<%=post%>' method="post" enctype="multipart/form-data"  accept-charset="UTF-8">
+<form name="write_form" id="write_form" action='write_proc.jsp' method="post" enctype="multipart/form-data">
 	<div class="centeralign">
 	<div class="bodyContainer">
 

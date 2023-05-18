@@ -14,6 +14,13 @@
 <link rel="stylesheet" href="park_css.css">
 <style>
 #kakaoDisabled{cursor:Default !important;}
+#inputCode{
+  width:40%;
+  height: 30px;
+  margin: 5px;
+  padding: 0 5px;
+  font-family: 'omyu_pretty';
+  font-size:1.3rem;}
 </style>
 </head>
 <body>
@@ -42,12 +49,13 @@
 			<form name='pwChangeForm' action='pwChange_proc.jsp' method='post'>
 				<label for="inputId">아이디</label>
 				<input type="text" name="inputId" value="<%=memberDto.getId() %>" disabled><br>
-				<label for="pw">현재 비밀번호</label>
+				<label for="pw">기존 비밀번호</label>
 				<input type="password" id="pw" name="pw" placeholder="password"><br>
 				<label for="pwNew">변경할 비밀번호</label>
 				<input type="password" id="pwNew" name="pwNew" placeholder="new password"><br>
 				<label for="pwChk">비밀번호 확인</label>
-				<input type="password" id="pwChk" name="pwChk" placeholder="confirm password"><br>
+				<input type="password" id="pwChk" name="pwChk" placeholder="confirm password"
+					onkeydown="if(event.keyCode == 13) pwCheck()"><br>
 				<label for="inputName">이름</label>
 				<input type="text" name="inputName" value="<%=memberDto.getName() %>" disabled><br>
 				<label for="inputPhone">휴대폰번호</label>
@@ -63,37 +71,38 @@
 				<button id="withdrawBtn" type="button" onclick="location.href='withdraw.jsp'">회원탈퇴</button>
 					
 			</form>		
-		</div>
-			
+		</div>			
 		<script>
 			let form = document.pwChangeForm;
 			function pwCheck(){
 				let pw = document.getElementById('pw');
 				let pwNew = document.getElementById('pwNew');
 				let pwChk = document.getElementById('pwChk');
+				let wrapper = document.getElementById('wrapper');
+				let inputCode = document.getElementById('inputCode');
 				let reg = new RegExp("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[~?!@#$%^&*_-]).{8,}$");
 				if(pw.value == ""){
-					alert('비밀번호를 입력해주세요');
+					alert('비밀번호를 입력해주세요.');
 					pw.focus();
 				} else if(pwNew.value == ""){
-					alert('변경할 비밀번호를 입력해주세요');
+					alert('변경할 비밀번호를 입력해주세요.');
 					pwNew.focus();
 				} else if(pwChk.value == ""){
-					alert('비밀번호를 재확인해주세요');
+					alert('비밀번호를 재확인해주세요.');
 					pwChk.focus();
 				} else if(pw.value == pwNew.value){
-					alert("기존 비밀번호와 동일합니다");
+					alert("기존 비밀번호와 동일합니다.");
 					pwNew.focus();
 				} else if(pwNew.value != pwChk.value){
-					alert('입력한 비밀번호가 다릅니다. 비밀번호를 재확인해주세요');
+					alert('입력한 비밀번호가 다릅니다. 비밀번호를 재확인해주세요.');
 					pwChk.focus();
 				} else if(!reg.test(pwNew.value)){
-					alert("비밀번호는 8자 이상, 숫자, 대문자, 소문자, 특수문자를 모두 포함해야 합니다");
+					alert("비밀번호는 8자 이상, 숫자, 대문자, 소문자, 특수문자를 모두 포함해야 합니다.");
 					pwNew.focus();
 				} else if(pwNew.value.search(" ") != -1){
-					alert("비밀번호는 공백을 포함할 수 없습니다");
+					alert("비밀번호는 공백을 포함할 수 없습니다.");
 					pwNew.focus();
-				} else{
+				} else{				
 					form.submit();
 				}
 			}
@@ -101,14 +110,14 @@
 <%		
 		}catch(Exception e){
 %>
-			<div id="container">			
+			<div id="container" style="height:600px">			
 				<h1>My Page</h1>
 				<form>
 					<label for="inputId">아이디</label>
 					<input type="text" name="inputId" value="<%=user_id %>" disabled><br>
 					<label for="inputName">이름</label>
 					<input type="text" name="inputName" value="<%=user_name %>" disabled><br>
-					<button id="kakaoDisabled">카카오 계정</button>
+					<button id="kakaoDisabled">소셜네트워크계정</button>
 				</form>	
 			</div>			
 <%
@@ -120,6 +129,6 @@
 			location.href = "Login.jsp";
 		</script>
 <%} %>
-		
+<%@ include file = "footer.jsp" %>		
 </body>
 </html>

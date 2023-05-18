@@ -13,9 +13,7 @@ import choi.dto.CategoryDto;
 
 public class CategoryDao {
 
-	
-
-	public int category_Update2(String category2) {
+	public int category_Update2(String category2, String userId2) {
 
 		Connection conn = null;
 		PreparedStatement psmt = null;
@@ -26,11 +24,12 @@ public class CategoryDao {
 
 			// 쿼리문!
 
-			String sql = "update category" + " SET category2 = ?" + " where user_id = 123";
+			String sql = "update category" + " SET category2 = ?" + " where user_id = ?";
 
 			psmt = conn.prepareStatement(sql);
 
 			psmt.setString(1, category2);
+			psmt.setString(2, userId2);
 
 			result = psmt.executeUpdate();
 
@@ -44,7 +43,7 @@ public class CategoryDao {
 		return result;
 	}
 
-	public int category_Update3(String category3) {
+	public int category_Update3(String category3, String userId2) {
 
 		Connection conn = null;
 		PreparedStatement psmt = null;
@@ -55,11 +54,12 @@ public class CategoryDao {
 
 			// 쿼리문!
 
-			String sql = "update category" + " SET category3 = ?" + " where user_id = 123";
+			String sql = "update category" + " SET category3 = ?" + " where user_id = ?";
 
 			psmt = conn.prepareStatement(sql);
 
 			psmt.setString(1, category3);
+			psmt.setString(2, userId2);
 
 			result = psmt.executeUpdate();
 
@@ -73,7 +73,7 @@ public class CategoryDao {
 		return result;
 	}
 
-	public int category_Update4(String category4) {
+	public int category_Update4(String category4, String userId2) {
 
 		Connection conn = null;
 		PreparedStatement psmt = null;
@@ -84,11 +84,12 @@ public class CategoryDao {
 
 			// 쿼리문!
 
-			String sql = "update category" + " SET category4 = ?" + " where user_id = 123";
+			String sql = "update category" + " SET category4 = ?" + " where user_id = ?";
 
 			psmt = conn.prepareStatement(sql);
 
 			psmt.setString(1, category4);
+			psmt.setString(2, userId2);
 
 			result = psmt.executeUpdate();
 
@@ -102,7 +103,7 @@ public class CategoryDao {
 		return result;
 	}
 
-	public int category_Update5(String category5) {
+	public int category_Update5(String category5, String userId2) {
 
 		Connection conn = null;
 		PreparedStatement psmt = null;
@@ -113,11 +114,12 @@ public class CategoryDao {
 
 			// 쿼리문!
 
-			String sql = "update category" + " SET category5 = ?" + " where user_id = 123";
+			String sql = "update category" + " SET category5 = ?" + " where user_id = ?";
 
 			psmt = conn.prepareStatement(sql);
 
 			psmt.setString(1, category5);
+			psmt.setString(2, userId2);
 
 			result = psmt.executeUpdate();
 
@@ -131,7 +133,55 @@ public class CategoryDao {
 		return result;
 	}
 
-	public List<CategoryDto> categoryList() {
+	
+	
+	public int category_default_Insert(String userId2) {
+
+		Connection conn = null;
+		PreparedStatement psmt = null;
+		ResultSet rs = null;
+		int result = 0;
+		try {
+			conn = DBConnectionManager.getConnection();
+
+			// 쿼리문!
+
+			String sql = "INSERT INTO category (user_id, category2, category3, category4, category5) " 
+	                + "SELECT ?, 'haha', 'haha', 'haha', 'haha' " 
+	                + "FROM dual " 
+	                + "WHERE NOT EXISTS (SELECT 1 FROM category WHERE user_id = ?)";
+
+			psmt = conn.prepareStatement(sql);
+
+			CategoryDto categoryDto = new CategoryDto();
+			psmt.setString(1, userId2);
+			psmt.setString(2, userId2);
+			
+			result = psmt.executeUpdate();
+
+			
+
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			DBConnectionManager.close(rs, psmt, conn);
+		}
+
+		return result;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	public List<CategoryDto> categoryList(String userId2) {
 		Connection conn = null;
 		PreparedStatement psmt = null;
 		ResultSet rs = null;
@@ -140,17 +190,19 @@ public class CategoryDao {
 		try {
 			conn = DBConnectionManager.getConnection();
 
-			String sql = "select category2, category3, category4, category5" + " from category"
-					+ " where user_id = 123";
+			String sql = "select category2, category3, category4, category5" 
+					+ " from category"
+					+ " where user_id = ?";
 
 			psmt = conn.prepareStatement(sql);
+			
+			psmt.setString(1, userId2);
 
 			rs = psmt.executeQuery();
 
 			categoryList = new ArrayList<CategoryDto>();
 			while (rs.next()) {
 				CategoryDto categoryDto = new CategoryDto();
-
 				
 				categoryDto.setCategory2(rs.getString("category2"));
 				categoryDto.setCategory3(rs.getString("category3"));
@@ -168,4 +220,38 @@ public class CategoryDao {
 
 		return categoryList;
 	}
+	
+	
+	public int reset_Category(String userId2) {
+
+		Connection conn = null;
+		PreparedStatement psmt = null;
+		ResultSet rs = null;
+		int result = 0;
+		try {
+			conn = DBConnectionManager.getConnection();
+
+			// 쿼리문!
+
+			String sql = "delete category" 
+						+ " where user_id = ?";
+
+			psmt = conn.prepareStatement(sql);
+
+			psmt.setString(1, userId2);
+
+			result = psmt.executeUpdate();
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			DBConnectionManager.close(rs, psmt, conn);
+		}
+
+		return result;
+	}
+	
+	
+	
 }

@@ -25,7 +25,7 @@
 			memberDao.updateStatus3(user_id);
 	%>
 			<script>
-				alert('탈퇴 성공');
+				alert('탈퇴가 완료되었습니다.');
 				location.href = "logout_proc.jsp";
 			</script>
 	<%

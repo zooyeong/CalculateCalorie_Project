@@ -37,7 +37,7 @@
 			if(updateResult == 1){
 	%>
 				<script>
-					alert('비밀번호 변경 성공');
+					alert('비밀번호가 변경되었습니다.');
 				</script>
 	<%
 				Date date1 = new Date(session.getLastAccessedTime());

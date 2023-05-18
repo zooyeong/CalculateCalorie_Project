@@ -46,14 +46,19 @@ try {
 
 <body>
 	
+<div id="editor-container"></div>
+
+
+
 
 <form name="write_form" action='write_proc.jsp' method="post" enctype="multipart/form-data"  accept-charset="UTF-8">
 		<div class="board_writer_container">
-			<div class="board_write">
-				<label for="title2"> 제목 
-				<input type="text" class="form-control" name="title"
-				id="title">
-				<textarea id="content" name="content" ></textarea>
+
+
+
+
+
+
   <div>
     <input type="file" name="fileename1" onchange="previewImage(event, 'preview1')">
     <input type="file" name="filename2" onchange="previewImage(event, 'preview2')">
@@ -68,6 +73,29 @@ try {
 </div>
 
 	</form>
+
+<!-- Include the Quill library -->
+<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+<!-- Initialize Quill editor -->
+<script>
+  var quill = new Quill('#editor-container', {
+    modules: {
+      toolbar: [
+        [{ header: [1, 2, false] }],
+        ['bold', 'italic', 'underline']  
+      ]
+    },
+    placeholder: 'Compose an epic...',
+    theme: 'snow'
+  });
+ 
+  var form = document.querySelector('form');
+  form.onsubmit = function() {
+    var content = document.querySelector('#editor-container .ql-editor').innerHTML;
+    document.querySelector('#content').value = content;  
+  }
+</script>
+
 
 
 	<script>
@@ -128,8 +156,8 @@ try {
 		    preview.appendChild(container);
 
 		    // 게시물 내용에 이미지 경로 삽입
-		    const content = document.getElementById('content');
-		    content.value += '<img src="' + container.imagePath + '">';
+		    //const content = document.getElementById('content');
+		    // content.value += '<img src="' + container.imagePath + '">';
 		  };
 
 		  // 파일을 읽기 시작

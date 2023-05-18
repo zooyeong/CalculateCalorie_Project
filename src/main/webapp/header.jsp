@@ -7,10 +7,10 @@
 <title>Insert title here</title>
 <style>
 @font-face {
-    font-family: 'omyu_pretty';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-01@1.0/omyu_pretty.woff2') format('woff2');
-    font-weight: normal;
-    font-style: normal;
+  font-family: 'omyu_pretty';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-01@1.0/omyu_pretty.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
 }
 *{
   margin:0; 
@@ -22,8 +22,15 @@ li{list-style-type: none;}
 a{text-decoration: none; color: black;}
 #logo{
   float: left;
+  border-bottom:solid 2px black;
+  border-top:solid 2px black;
+  border-radius:20px;
+  padding: 5px;}
+#logoText{
+  font-family: 'omyu_pretty';
+  font-weight: 900;
+  font-size: 3rem;
 }
-
 #nav{
   float: right;
   font-family: 'omyu_pretty';
@@ -31,6 +38,7 @@ a{text-decoration: none; color: black;}
   font-size: 1.5rem;
 }
 #header{
+  height: 200px;
   padding: 50px;
   content: '';
   display: block;
@@ -60,7 +68,7 @@ button{
 %>
 
 	<div id="header">
-		<div id="logo"><a href="header.jsp">로고</a></div> <!-- 메인으로 이동(수정해야함) -->
+		<div id="logo"><a href="index.jsp" id="logoText">OVENGERS</a></div>
 		<div id="nav">		
 			<ul>
 				<li class="nav_item" id="login"><a href="Login.jsp">로그인</a></li>
@@ -68,6 +76,7 @@ button{
 				<li id="logout" style="display: none"><form name="logoutCheckForm" action="logout_proc.jsp" method="post"><button type="button" id="logoutBtn">로그아웃</button></form>
 				<li class="nav_item"><a href="mypage.jsp">마이페이지</a></li>
 				<li class="nav_item"><a href="joinAgree.jsp">회원가입</a></li>
+				<li class="nav_item"><a href="list_Board.jsp?user_id=<%=user_id%>&page=1">다이어리</a></li>
 				<li class="nav_item"><a href="">고객센터</a></li>
 			</ul>
 		</div>

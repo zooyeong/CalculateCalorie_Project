@@ -9,7 +9,7 @@
 <body>
 	<%
 		session.invalidate();
-		response.sendRedirect("header.jsp"); //메인으로 이동(수정해야함)
+		response.sendRedirect("index.jsp");
 	%>
 </body>
 </html>

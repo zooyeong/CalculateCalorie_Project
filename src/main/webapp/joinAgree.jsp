@@ -6,6 +6,31 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="park_css.css">
+<style>
+#container{width:50%;}
+input[type="checkbox"]{
+  margin-left:10px;
+  width: 26px;
+  height: 26px;
+  cursor: pointer;
+  appearance: none;
+  border-radius: 50%;
+  background: lightgray;
+  font-size: 22px;
+  text-align: center;
+  line-height: 26px;
+}
+input[type="checkbox"]::before {
+  content: "\2714";
+  color: white;
+  text-align: center;
+}
+
+input[type="checkbox"]:checked {
+  background-color: black;
+  color: white;
+}
+</style>
 </head>
 <body>
 <%@ include file = "header.jsp" %>
@@ -101,7 +126,7 @@
 	      </form>
 	
 	    </div>
-	    
+<%@ include file = "footer.jsp" %>	    
 	    <script>
 	    	let agreeAll = document.getElementById('agreeAll');
 	    	let agree1 = document.getElementById('agree1');
@@ -125,7 +150,7 @@
 	    		if (agree1.checked && agree2.checked) {
 	    	        form.submit();
 	    	    } else {
-					alert('필수 약관에 동의해주세요');
+					alert('필수 약관에 동의해주세요.');
 	    	    }
 	    	};
 	    </script>

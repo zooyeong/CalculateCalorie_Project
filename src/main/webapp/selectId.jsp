@@ -6,10 +6,15 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="park_css.css">
+<link rel="stylesheet" href="park_align_css.css">
+<style>
+#selectId{font-weight:bolder;}
+</style>
 </head>
 <body>
 <%@ include file = "header.jsp" %>
-	<div id="container">
+<%@ include file = "align.jsp" %>
+	<div id="container" style="height:600px; padding-top:50px;">
 		<h1>아이디 찾기</h1>
 		<form name='selectIdForm' action='selectId_proc.jsp' method='post'>	
 			<label for="inputName">이름</label>
@@ -21,6 +26,7 @@
 			<button type="button" onclick="selectId_func()">아이디 찾기</button>
 		</form>
 	</div>
+<%@ include file = "footer.jsp" %>
 	<script>
 		function selectId_func(){
 			let inputName = document.getElementById('inputName');
@@ -28,10 +34,10 @@
 			let form = document.selectIdForm;
 			
 			if(inputName.value == ""){
-				alert('이름을 입력해주세요');
+				alert('이름을 입력해주세요.');
 				inputName.focus();
 			} else if(inputPhoneNum.value == ""){
-				alert('휴대폰번호를 입력해주세요');
+				alert('휴대폰번호를 입력해주세요.');
 				inputName.focus();
 			} else{
 				form.submit();	
