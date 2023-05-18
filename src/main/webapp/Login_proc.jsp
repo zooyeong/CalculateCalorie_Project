@@ -44,7 +44,7 @@
 	<%
 		} else{
 			switch(status){
-			case 1:
+			case 1://정상회원 > 로그인 성공
 				AES256 aes256 = new AES256();
 				String encPw = aes256.encrypt(pw);
 				
@@ -54,7 +54,7 @@
 					session.setMaxInactiveInterval(3600); //1시간
 	%>
 					<script>
-						alert('로그인 성공');
+						alert('<%=memberDto.getName() %>님 환영합니다.');
 					</script>
 	<%	
 					Date date = new Date(); //현재시간
@@ -68,40 +68,50 @@
 					cal.setTimeInMillis(pwChnDate.getTime());
 					cal.add(Calendar.DATE, 90); //pwChnDate+90일
 				
-					if(cal.getTime().before(date)){
+					if(date.after(cal.getTime())){
 	%>
 						<script>
-							location.href = 'alertPwChange.jsp'; //90일 경과 -> 비밀번호 변경 페이지로 이동
+							location.href = 'alertPwChange.jsp';
+							//90일 경과 -> 비밀번호 변경 페이지로 이동
 						</script>	
 	<%
 					}else{
 	%>
 						<script>
-							location.href = 'header.jsp'; //로그인 성공 -> 메인페이지로 이동(수정해야함)
+							location.href = 'index.jsp'; //로그인 성공 > 메인페이지로 이동
 						</script>	
 	<%				
 					}
-				} else{
+				} else{//비밀번호 불일치
 	%>
 					<script>
-								alert('비밀번호가 다릅니다');
-								history.go(-1);
+						alert('비밀번호가 다릅니다.');
+						history.go(-1);
 					</script>
 	<%			
 				}
 				break;
 			case 2:
 	%>
+				<form name='tempForm' id='tempForm' action='temp_proc.jsp' method='post'>
+					<input type="hidden" id="tempId" name="tempId">
+				</form>
 				<script>
-					alert('휴면 계정입니다');
-					history.go(-1);
+					let result = confirm('아이디 <%=manageDto.getId()%>는(은) 휴면 계정입니다.\n계정을 활성화하시겠습니까?');
+					if(result == true){
+						let form = document.tempForm;
+						form.submit();						
+					}else{						
+						history.go(-1);
+					}
+					
 				</script>
 	<%
 				break;
 			case 3:
 	%>
 				<script>
-					alert('탈퇴 계정입니다');
+					alert('아이디 <%=manageDto.getId()%>는(은) 탈퇴 계정입니다.');
 					history.go(-1);
 				</script>	
 	<%

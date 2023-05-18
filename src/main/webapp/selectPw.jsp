@@ -6,10 +6,15 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="park_css.css">
+<link rel="stylesheet" href="park_align_css.css">
+<style>
+#selectPw{font-weight:bolder;}
+</style>
 </head>
 <body>
 <%@ include file = "header.jsp" %>
-	<div id="container">	
+<%@ include file = "align.jsp" %>
+	<div id="container" style="height:600px; padding-top:50px;">	
 		<h1>비밀번호 찾기</h1>
 		<form name='selectPwForm' action='selectPw_proc.jsp' method='post'>	
 			<label for="inputId">아이디</label>
@@ -24,7 +29,7 @@
 			<button type="button" onclick="selectPw_func()">비밀번호 찾기</button>
 		</form>
 	</div>
-	
+<%@ include file = "footer.jsp" %>	
 	<script>
 		function selectPw_func(){
 			let inputId = document.getElementById('inputId');
@@ -33,10 +38,10 @@
 			let form = document.selectPwForm;
 			
 			if(inputId.value == ""){
-				alert('아이디를 입력해주세요');
+				alert('아이디를 입력해주세요.');
 				inputId.focus();
 			} else if(inputName.value == ""){
-				alert('이름을 입력해주세요');
+				alert('이름을 입력해주세요.');
 				inputName.focus();
 			} else if(inputPhoneNum.value == ""){
 				alert('휴대폰번호를 입력해주세요');

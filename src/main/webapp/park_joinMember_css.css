@@ -1,0 +1,68 @@
+@charset "EUC-KR";
+#container{width:50%;}
+#container > form{text-align:left;}
+#container select{
+  width:25%;
+  height: 30px;
+  margin: 5px;
+  padding: 0 5px;
+  font-family: 'omyu_pretty';
+  font-size:1.3rem;
+  color: black;
+}
+#inputEmail, #inputAddress{
+  width: 25% !important;
+}
+#idCheckBtn, #verificationBtn, #verifBtn{
+  margin: 5px !important;
+  width: 25% !important;
+  height: 30px !important;
+  font-size: 1.2rem;
+}
+#inputId, #inputPw, #inputPwChk, #inputName, #birth{width: 70% !important;}
+.star{color:red;}
+#btnWrapper{width:100%; text-align:center;}
+#joinBtn, #cancelBtn{
+  width: 30%;
+  height: 40px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  margin-top: 30px;
+}
+input[type="radio"]{
+  margin-left:5px;
+  margin-top:10px;
+  width: 26px;
+  height: 26px;
+  cursor: pointer;
+  appearance: none;
+  border-radius: 50%;
+  background: lightgray;
+  font-size: 22px;
+  text-align: center;
+  line-height: 26px;
+}
+input[type="radio"]::before {
+  content: "\25CE";
+  color: white;
+  text-align: center;
+}
+
+input[type="radio"]:checked {
+  background-color: black;
+  color: white;
+}
+.notice{color:red; font-size:0.8rem; margin-left:5px;}
+#verif {
+  overflow: hidden;
+  height: 0;
+  transition-property: all;
+  transition-duration: 0.7s;
+  position: relative;
+  margin: 10px 0;
+}
+#verif_input{
+  width: 25%; height:30px; padding-left:5px; margin: 5px;
+  font-family:'omyu_pretty';
+  font-size:1.3rem;}
+#pfont_alert, #timer{color: red; font-size: small;}

@@ -9,7 +9,7 @@
 </head>
 <body>
 <%@ include file = "header.jsp" %>
-	<div id="container">	
+	<div id="container" style="height:600px; padding-top:50px;">	
 		<h1>비밀번호 확인</h1>
 		<form name='withdrawForm' action='withdraw_proc.jsp' method='post'>
 			<label for="pw">현재 비밀번호</label>
@@ -18,12 +18,12 @@
 			<button id="cancleBtn" type="button" onclick="location.href='mypage.jsp'">탈퇴취소</button>
 		</form>
 	</div>
-	
+<%@ include file = "footer.jsp" %>	
 	<script>
 		function pwCheck(){
 			let pw = document.getElementById('pw');
 			if(pw.value == ""){
-				alert('비밀번호를 입력해주세요');
+				alert('비밀번호를 입력해주세요.');
 				pw.focus();
 			} else{
 				let form = document.withdrawForm;

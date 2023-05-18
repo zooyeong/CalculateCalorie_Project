@@ -1,0 +1,49 @@
+@charset "EUC-KR";
+#container{width:50%;}
+#container a{
+  margin: 10px;
+}
+#container p{
+  margin: 10px;
+}
+#h_b_back1 {
+  height: 150px;
+  background: url(img_park/icon_id.png) 50px top no-repeat;
+}
+
+#h_b_back2 {
+  background: url(img_park/icon_password.png) 50px top no-repeat;
+}
+
+#h_b_back3 {
+  background: url(img_park/icon_join.png) 50px top no-repeat;
+}
+#help_box{
+  margin: 0 auto;
+  width: 60%;
+  height:250px;
+  text-align: center;
+}
+#help_box ul {
+  display:inline-block;
+  width: 210px;
+  padding: 110px 0 0 0;
+}
+#help_box li{display:inline-block; text-align:center;}
+#help_box>ul>li:last-child {
+  width: 120px;
+  height: 40px;
+  line-height: 40px;
+  margin-top: 10px;
+  background-color: black;
+  border-radius: 5px;
+}
+#help_box>ul>li>a {
+  color: white;
+}
+#login{font-weight:bolder;}
+#align{padding-top:100px;}
+#loginForm{position:relative;}
+#labelId, #labelPw{position:absolute; left:15%;}
+#labelId{top:40px;}
+#labelPw{top:80px;}

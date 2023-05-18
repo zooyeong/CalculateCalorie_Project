@@ -12,7 +12,7 @@ import park.oracle.DBConnectionManager;
 import park.dto.ManageDto;
 import park.dto.MemberDto;
 
-public class MemberDao {
+public class MemberDao implements MemberInterface {
 	//insert(회원가입)
 	public int insertMemberInfo(String id, String password, String passwordcheck,
 								String name, String birth, String gender,
@@ -140,9 +140,6 @@ public class MemberDao {
 
 				memberDto = new MemberDto();
 				
-				//차이 이해하기
-//				memberDto.setId("id");
-//				memberDto.id = rs.getString("id");
 				memberDto.setId(rs.getString("id"));
 				memberDto.setPassword(rs.getString("password"));
 				memberDto.setName(rs.getString("name"));
@@ -438,8 +435,40 @@ public class MemberDao {
 		
 		return result;
 	}
+	
+	//update(회원상태->정상계정:1)
+	public int updateStatus1(String id) {
 
-	//update(회원상태->탈퇴계정:3)
+		Connection conn = null;
+		PreparedStatement psmt = null;
+		ResultSet rs = null;
+		int result = 0;
+		
+		try {
+			conn = DBConnectionManager.getConnection();
+
+			//쿼리문!
+			String sql = "update member_management"
+					+ " set status = 1"
+					+ " where id = ?";
+
+			psmt = conn.prepareStatement(sql);
+
+			psmt.setString(1, id);
+
+			result = psmt.executeUpdate();
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			DBConnectionManager.close(rs, psmt, conn);
+		}
+		
+		return result;
+	}
+
+	//update(회원상태->휴면계정:2)
 	public int updateStatus2(String id) {
 
 		Connection conn = null;

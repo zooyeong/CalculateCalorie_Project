@@ -10,17 +10,48 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style>
+@font-face {
+    font-family: 'omyu_pretty';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-01@1.0/omyu_pretty.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+#container{
+  margin: 0 auto;
+  text-align:center;
+  font-family: 'omyu_pretty';}
+#checkForm input{
+  width:60%;
+  height: 30px;
+  margin: 5px;
+  padding: 0 5px;
+  font-family: 'omyu_pretty';
+  font-size:1.3rem;}
+#useBtn, #cancleBtn, #idChk{
+  margin: 30px 0;
+  display:inline-block;
+  width: 30%;
+  height: 30px;
+  cursor: pointer;
+  background-color:black;
+  color: white;
+  font-family: 'omyu_pretty';
+  font-size:1.2rem;
+  border-radius:5px;}
+#msg{margin-top:30px; font-size:1.2rem;}
+</style>
 </head>
 <body onload="pValue()">
 
-	<div id="wrap">
-		<p>아이디 중복체크</p>
+	<div id="container">
+		<h2>아이디 중복체크</h2>
 		<div id="chk">
-			<div id="msg"></div>
 			<form id="checkForm">
 				<input type="text" name="id" id="userid">
 				<input type="hidden" id="idChk" value="중복확인" onclick="idDuplicateChk()">
 			</form>
+			<div id="msg"></div>
 			<input type="button" id="useBtn" value="사용" onclick="sendCheckValue()">
 			<input type="button" id="cancleBtn" value="취소" onclick="window.close()">
 		</div>

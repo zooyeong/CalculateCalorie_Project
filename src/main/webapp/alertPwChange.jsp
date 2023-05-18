@@ -5,26 +5,39 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="park_css.css">
+<style>
+h2, h3{
+  text-align: center;
+  font-family: 'omyu_pretty';
+  margin-top:50px;
+}
+h2{font-size: 2rem;}
+h3{font-size: 1.5rem;}
+</style>
 </head>
 <body>
-	<h1>개인정보를 위해</h1>
-	<h1>비밀번호를 변경해 주세요</h1>
+<%@ include file = "header.jsp" %>
+	<h1>비밀번호 변경</h1>
 	
-	<p>회원님은 3개월 이상 동일한 비밀번호를 사용하고 계십니다.<br>
-	   소중한 개인 정보보호를 위해 비밀번호를 주기적으로 변경해주세요.</p>
-		
-	<form name='pwChangeForm' action='pwChange_proc.jsp' method='post'>
-				
-
-		<label for="pw">현재 비밀번호</label>
-		<input type="password" id="pw" name="pw" placeholder="password"><br>
-		<label for="pwNew">변경할 비밀번호</label>
-		<input type="password" id="pwNew" name="pwNew" placeholder="new password"><br>
-		<label for="pwChk">비밀번호 확인</label>
-		<input type="password" id="pwChk" name="pwChk" placeholder="confirm password"><br>
-		<button id="pwChangeBtn" type="button" onclick="pwCheck()">비밀번호 변경</button>
-		<button id="laterBtn" type="button" onclick="location.href='pwChangeLater_proc.jsp'">90일 뒤에 변경</button>
-	</form>
+	<h2>개인정보를 위해<br>비밀번호를 변경해 주세요</h2>
+	
+	<h3>회원님은 3개월 이상 동일한 비밀번호를 사용하고 계십니다.<br>
+	   소중한 개인 정보보호를 위해 비밀번호를 주기적으로 변경해주세요.</h3>
+	<div id="container">	
+		<form name='pwChangeForm' action='pwChange_proc.jsp' method='post'>
+					
+	
+			<label for="pw">현재 비밀번호</label>
+			<input type="password" id="pw" name="pw" placeholder="password"><br>
+			<label for="pwNew">변경할 비밀번호</label>
+			<input type="password" id="pwNew" name="pwNew" placeholder="new password"><br>
+			<label for="pwChk">비밀번호 확인</label>
+			<input type="password" id="pwChk" name="pwChk" placeholder="confirm password"><br>
+			<button id="pwChangeBtn" type="button" onclick="pwCheck()">비밀번호 변경</button>
+			<button id="laterBtn" type="button" onclick="location.href='pwChangeLater_proc.jsp'">90일 뒤에 변경</button>
+		</form>
+	</div>	
 	
 	<script>
 		let form = document.pwChangeForm;
