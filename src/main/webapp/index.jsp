@@ -10,7 +10,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>5 칼로리</title>
 <link rel="stylesheet" href="park_css.css">
 <style>
 #container{width:100%;}
@@ -45,10 +45,11 @@
 		<div id="container">
 		<h1>TODAY</h1>
 		<form name='searchForm' action='today_proc.jsp' method='post'>
-			탄수화물<span id="carbohydrate">0</span>
-			단백질<span id="protein">0</span>
-			지방<span id="fat">0</span>
-			칼로리<span id="calorie">0</span><br>
+		
+  		탄수화물: <span id="carbohydrate" style="font-size: 40px; color: #98FB98;">0</span>
+  		단백질 : <span id="protein" style="font-size: 40px; color: #98FB98;">0</span>
+  		지방 : <span id="fat" style="font-size: 40px; color: #98FB98;">0</span>
+  		칼로리 :<span id="calorie" style="font-size: 40px; color: #98FB98;">0</span><br>
 			<label for="name">아침  음식명</label>
 		    <input type="text" id="name1" name="name1" placeholder="음식명을 입력해주세요">
 		    <button id="searchBtn" type="button" onclick="searchChk1()">검색하기</button>
@@ -77,8 +78,11 @@
 		    <label for="eatAmount">섭취량</label>
 		    <input type="text" id="eatAmount4" name="eatAmount4" placeholder="섭취한 음식을 그램(g) 단위로 입력해주세요"><br>
 		    
-		    <button id="registerBtn" type="submit" style="display: block; margin: 0 auto; margin-right:5px; ">등록하기</button>
-		     
+		    
+  			<button id="registerBtn" type="submit" style="display: block; position: relative; right: 170px; margin: 0 auto; margin-right: 5px;">등록하기</button>
+			
+		    
+		    <button id="btn" type="button" style="background-color: #98FB98; color: black; display: block; margin: -40px auto 0; margin-top:-50px; margin-left: 550px; text-align: center; width: 190px; height:80px;" onclick="location.href='Calculation.jsp'">권장 칼로리 계산</button>
 		    </form>
 	</div>
 	
@@ -87,7 +91,7 @@
 if (request.getMethod().equals("POST")) {
   // 버튼이 클릭되었을 때 실행될 코드
   
-  int result = calDao1.deleteToday();
+  int result = calDao1.deleteToday(user_id);
   if (result > 0) {
 %>
     <script>
@@ -99,17 +103,8 @@ if (request.getMethod().equals("POST")) {
 %>
 
 <form method="post" action="">
-  <button type="submit" style="position: relative; top: -140px; left: 5px; width: 150px; height: 60px;">삭제</button>
+  <button type="submit" style="position: relative; top: -180px; left: 165px; width: 165px; height: 60px; font-size:50px;">삭제</button>
 </form>
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	<script>
 		function searchChk1(){

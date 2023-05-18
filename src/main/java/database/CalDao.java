@@ -193,24 +193,28 @@ public class CalDao {
 	}
 
 	
-	//insert(아침 등록)
-		public int deleteToday() {
+	//delete(삭제)
+		public int deleteToday(String id) {
 
 			Connection conn = null;
 			PreparedStatement psmt = null;
 			ResultSet rs = null;
 			int result = 0;
+			LocalDate now = LocalDate.now();
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yy/MM/dd");
+			String formatedNow = now.format(formatter);
 			try {
 				conn = DBConnectionManager.getConnection();
 
 				//쿼리문!
-				String sql = "delete FROM today";
+				String sql = "delete FROM today"
+						+ " where to_char(update_date, 'YY/MM/DD') = ? and id = ?";
 						
-
 				psmt = conn.prepareStatement(sql);
 				
-			
-	                                                               
+				psmt.setString(1, formatedNow); 
+				psmt.setString(2, id); 
+				
 				result = psmt.executeUpdate();
 
 			} catch (SQLException e) {
@@ -222,198 +226,8 @@ public class CalDao {
 			
 			return result;
 		}
-	
-	/*
-	//delete (삭제 기능)
-	public int Delete(String id, String code, double carbohydrate,
-			double protein, double fat, double calorie, double eat_amount) {
-
-		Connection conn = null;
-		PreparedStatement psmt = null;
-		ResultSet rs = null;
-		int result = 0;
-		try {
-			conn = DBConnectionManager.getConnection();
-
-			//쿼리문!
-			String sql = "insert into today (id, code, carbohydrate, protein, fat, calorie, eat_amount) "
-					+ " values (?,?,?,?,?,?,?)";
-
-			psmt = conn.prepareStatement(sql);
-			
-			psmt.setString(1, id); 
-			psmt.setString(2, code); 
-			psmt.setDouble(3, carbohydrate); 
-			psmt.setDouble(4, protein); 
-			psmt.setDouble(5, fat); 
-			psmt.setDouble(6, calorie); 
-			psmt.setDouble(7, eat_amount); 
-                                                               
-			result = psmt.executeUpdate();
-
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			DBConnectionManager.close(rs, psmt, conn);
-		}
-		
-		return result;
 	}
-	*/
-	
-	/*
-	//delete(삭제버튼) 
-	public int delete(String id, String code, double carbohydrate,
-			double protein, double fat, double calorie, double eat_amount) {
 
-		Connection conn = null;
-		PreparedStatement psmt = null;
-		ResultSet rs = null;
-		int result = 0;
-		try {
-			conn = DBConnectionManager.getConnection();
 
-			//쿼리문!
-			String sql = "insert into delete (id, code, carbohydrate, protein, fat, calorie, eat_amount) "
-					+ " values (?,?,?,?,?,?,?)";
 
-			psmt = conn.prepareStatement(sql);
-			
-			psmt.setString(1, id); 
-			psmt.setString(2, code); 
-			psmt.setDouble(3, carbohydrate); 
-			psmt.setDouble(4, protein); 
-			psmt.setDouble(5, fat); 
-			psmt.setDouble(6, calorie); 
-			psmt.setDouble(7, eat_amount); 
-                                                               
-			result = psmt.executeUpdate();
 
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			DBConnectionManager.close(rs, psmt, conn);
-		}
-		
-		return result;
-	}
-	
-	*/
-	
-	
-	
-	/*
-	//insert(점심 등록)
-		public int insertLunch(String id, String code, double carbohydrate,
-				double protein, double fat, double calorie, double eat_amount) {
-
-			Connection conn = null;
-			PreparedStatement psmt = null;
-			ResultSet rs = null;
-			int result = 0;
-			try {
-				conn = DBConnectionManager.getConnection();
-
-				//쿼리문!
-				String sql = "insert into today (id, code, carbohydrate, protein, fat, calorie, eat_amount) "
-						+ " values (?,?,?,?,?,?,?)";
-
-				psmt = conn.prepareStatement(sql);
-				
-				psmt.setString(1, id); 
-				psmt.setString(2, code); 
-				psmt.setDouble(3, carbohydrate); 
-				psmt.setDouble(4, protein); 
-				psmt.setDouble(5, fat); 
-				psmt.setDouble(6, calorie); 
-				psmt.setDouble(7, eat_amount); 
-
-				result = psmt.executeUpdate();
-
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} finally {
-				DBConnectionManager.close(rs, psmt, conn);
-			}
-			
-			return result;
-		}
-		
-		//insert(저녁 등록)
-		public int insertDinner(String id, String code, double carbohydrate,
-				double protein, double fat, double calorie, double eat_amount) {
-
-			Connection conn = null;
-			PreparedStatement psmt = null;
-			ResultSet rs = null;
-			int result = 0;
-			try {
-				conn = DBConnectionManager.getConnection();
-
-				//쿼리문!
-				String sql = "insert into today (id, code, carbohydrate, protein, fat, calorie, eat_amount) "
-						+ " values (?,?,?,?,?,?,?)";
-
-				psmt = conn.prepareStatement(sql);
-				
-				psmt.setString(1, id); 
-				psmt.setString(2, code); 
-				psmt.setDouble(3, carbohydrate); 
-				psmt.setDouble(4, protein); 
-				psmt.setDouble(5, fat); 
-				psmt.setDouble(6, calorie); 
-				psmt.setDouble(7, eat_amount); 
-
-				result = psmt.executeUpdate();
-
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} finally {
-				DBConnectionManager.close(rs, psmt, conn);
-			}
-			
-			return result;
-		}
-		
-		//insert(간식 등록)
-		public int insertsnack(String id, String code, double carbohydrate,
-				double protein, double fat, double calorie, double eat_amount) {
-
-			Connection conn = null;
-			PreparedStatement psmt = null;
-			ResultSet rs = null;
-			int result = 0;
-			try {
-				conn = DBConnectionManager.getConnection();
-
-				//쿼리문!
-				String sql = "insert into today (id, code, carbohydrate, protein, fat, calorie, eat_amount) "
-						+ " values (?,?,?,?,?,?,?)";
-
-				psmt = conn.prepareStatement(sql);
-				
-				psmt.setString(1, id); 
-				psmt.setString(2, code); 
-				psmt.setDouble(3, carbohydrate); 
-				psmt.setDouble(4, protein); 
-				psmt.setDouble(5, fat); 
-				psmt.setDouble(6, calorie); 
-				psmt.setDouble(7, eat_amount); 
-
-				result = psmt.executeUpdate();
-
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} finally {
-				DBConnectionManager.close(rs, psmt, conn);
-			}
-			
-			return result;
-		}
-		*/
-	}
