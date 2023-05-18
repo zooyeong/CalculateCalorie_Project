@@ -201,7 +201,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			<div class="cate_right_Button">
+			<div class="cate_right_Button">  
 				<div class="category_button">
 				<% CategoryDao categoryDao=new CategoryDao(); List<CategoryDto> categoryList = categoryDao.categoryList(userId);%>
 				<%for(CategoryDto categoryDto : categoryList){ %>
