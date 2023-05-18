@@ -142,7 +142,7 @@ if (request.getMethod().equals("POST")) {
 						, "searchForm", "width=1200, height=600, resizable = no, scrollbars = no");
 			}
 		};
-		
+		 
 		function searchChk4(){
 			let name = document.getElementById('name4');
 			
