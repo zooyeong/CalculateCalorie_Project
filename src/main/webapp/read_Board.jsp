@@ -109,15 +109,16 @@
 		}
 		
 		.five_Container{
-			height:100px;
+			height:70px;
 			width:1200px;
 			display:flex;
 			justify-content:center;
 			align-items: center;
+			border-bottom:1px solid black;
 		}
 		
 		.five_center_left_Container{
-			height:100px;
+			height:70px;
 			width:150px;
 			display:flex;
 			justify-content:center;
@@ -125,7 +126,7 @@
 		}
 		
 		.five_center_Container{
-			height:100px;
+			height:70px;
 			width:1050px;
 			display:flex;
 			justify-content:center;
@@ -134,7 +135,7 @@
 		}
 		
 		.five_center_right_Container{
-			height:100px;
+			height:70px;
 			width:150px;
 			display:flex;
 			justify-content:center;
@@ -142,7 +143,7 @@
 		}
 		
 		.five_right_Container{
-			height:100px;
+			height:70px;
 			width:150px;
 			display:flex;
 			justify-content:end;
@@ -192,7 +193,7 @@
     			<button type="submit">수정</button>
 			</form>
 			<form action="dele_Board.jsp" method="get">
-			<input type="hidden" name="post_no" value="<%= post_no %>">
+				<input type="hidden" name="post_no" value="<%= post_no %>">
     			<input type="hidden" name="user_id" value="<%= userId %>">
 				<button type="submit" id="delBtn" name="delBtn">삭제</button>
 			</form>
@@ -230,17 +231,26 @@
 </div>
 
 <div class="five_Container">
+	
 	<div class="five_center_left_Container">
+	<a href="read_Board.jsp?post_no=<%=post_no - 1%>&user_id=<%=userId%>">
 		<button id="pageLeft">이전 글</button>
+		</a>
 	</div>
 	<div class="five_center_Container">
 		<button id="likeBtn">좋아요</button>
 	</div>
 	<div class="five_center_right_Container">
-		<button id="pageLeft">다음 글</button>
-	</div>
+  <a id="pageRightLink" href="read_Board.jsp?post_no=<%=post_no + 1%>&user_id=<%=userId%>">
+    <button id="pageRight">다음 글</button>
+  </a>
+</div>
+
+
 	<div class="five_right_Container">
-		<button id="listMove" onclick="moveBoard()">글 목록</button>
+	<a href="list_Board.jsp?user_id=<%=userId%>&page=1">
+		<button id="listMove">글 목록</button>
+		</a>
 	</div>
 </div>
 
@@ -262,7 +272,6 @@ try {
 }
 %>
  
-<%= check %>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
 $(document).ready(function() {

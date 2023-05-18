@@ -132,8 +132,9 @@ height:30px;
 	display:flex;
 	justify-content: center;
   align-items: center;
-  margin-bottom: 30px;
-  gap:30px;
+  margin-top:30px;
+  margin-bottom: 60px;
+  gap:50px;
 }
 
 
@@ -349,7 +350,7 @@ int post = Integer.parseInt(postNoParam);
 	
 		
 	</script>
-
+<%@ include file = "footer.jsp" %>
 </body>
 
 </html>

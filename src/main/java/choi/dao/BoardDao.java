@@ -65,6 +65,71 @@ public class BoardDao {
 	}
 	
 	
+	public List<BoardDto> boardCategory(String userId, int pageNo, String category){
+		Connection conn = null;
+		PreparedStatement psmt = null;
+		ResultSet rs = null;
+		List<BoardDto> boardCategory = null;
+		
+		try {
+			conn = DBConnectionManager.getConnection();
+			
+			String sql = "SELECT * FROM ("
+		             + "SELECT t.*, ROWNUM AS rn FROM ("
+		             + "SELECT * FROM board WHERE user_id = ? AND category = ? ORDER BY post_no DESC"
+		             + ") t WHERE ROWNUM <= ?*10)"
+		             + "WHERE rn BETWEEN (?-1)*10+1 AND ?*10";
+			
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, userId);
+			psmt.setString(2, category);
+			psmt.setInt(3, pageNo);
+			psmt.setInt(4, pageNo);
+			psmt.setInt(5, pageNo);
+			
+			rs = psmt.executeQuery(); 
+			
+			boardCategory = new ArrayList<BoardDto>();
+			while(rs.next()) {
+			    BoardDto boardDto = new BoardDto();
+			    
+			    boardDto.setUser_id(rs.getString("user_id"));
+			    boardDto.setPost_no(rs.getInt("post_no"));
+			    boardDto.setTitle(rs.getString("title"));
+			    boardDto.setContent_text(rs.getString("content_text"));
+			    boardDto.setContent_img(rs.getString("content_img"));
+			    boardDto.setCreated_date(rs.getDate("created_date"));
+			    boardDto.setUpdated_date(rs.getDate("updated_date"));
+			    boardDto.setViews(rs.getInt("views"));
+			    boardDto.setTotal_like(rs.getInt("total_like"));
+			    boardDto.setCount_like(rs.getInt("Count_like"));
+			    boardDto.setCategory(rs.getString("category"));
+			    
+			    boardCategory.add(boardDto);
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBConnectionManager.close(rs, psmt, conn);			
+		}
+		
+		return boardCategory;		
+	}	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	public BoardDto board_Read(int post_no, String useriD) {
 		Connection conn = null;
 		PreparedStatement psmt = null;
@@ -109,6 +174,17 @@ public class BoardDao {
 		
 		return boardDto;
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	public BoardDto viewsUp(int post_no) {
 		Connection conn = null;
@@ -350,7 +426,41 @@ public class BoardDao {
 	
 	
 	
-	
+	public int getLastPostNo(String useriD) {
+		Connection conn = null;
+		PreparedStatement psmt = null;
+		ResultSet rs = null;
+		
+		int count = 0;
+		
+		try {
+			conn = DBConnectionManager.getConnection();
+
+			String sql = "SELECT post_no"
+		            + " FROM (SELECT post_no"
+		            + " FROM board "
+		            + " WHERE user_id = ?"
+		            + " ORDER BY post_no DESC)"
+		            + " WHERE ROWNUM <= 1";
+
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, useriD);
+
+			rs = psmt.executeQuery();
+
+			if(rs.next()) {
+				count = rs.getInt("post_no");
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			DBConnectionManager.close(rs, psmt, conn);			
+		}
+		
+		return count;
+	}
 	
 	
 	

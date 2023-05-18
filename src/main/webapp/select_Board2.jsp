@@ -129,8 +129,9 @@ height:30px;
 	display:flex;
 	justify-content: center;
   align-items: center;
-  margin-bottom: 30px;
-  gap:30px;
+  margin-top:30px;
+  margin-bottom: 60px;
+  gap:50px;
 }
 
 #catesele1 {
@@ -348,5 +349,5 @@ height:30px;
 	</script>
 
 </body>
-
+	<%@ include file = "footer.jsp" %>
 </html>

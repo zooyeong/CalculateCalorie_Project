@@ -39,10 +39,15 @@ String category = multi.getParameter("category");
 %>
 <%@ include file = "header.jsp" %>
 
-User ID: <%= userId %>
-User ID: <%= category %>
 <%
 BoardDao boardDao = new BoardDao();
 int result = boardDao.insertBoard(userId, title, content, filePath1, category); // 이미지 경로 태그와 함께 DB에 저장
 %>
 
+<%
+int lastPostNo = boardDao.getLastPostNo(userId);
+%>
+
+<%
+response.setHeader("Refresh", "0; URL=read_Board.jsp?post_no=" + lastPostNo + "&user_id=" + userId);
+%>

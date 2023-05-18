@@ -40,17 +40,15 @@ int post = Integer.parseInt(postStr);
 String userId = (String)session.getAttribute("user_id");
 String title = multi.getParameter("title");
 String content = multi.getParameter("content");
-
-
-out.println("post_no: " + post);
-out.println("user_id: " + userId);
-out.println("title: " + title);
-out.println("content: " + content);
 %>
 
 <%
 BoardDao boardDao = new BoardDao();
 int result = boardDao.updateBoard(userId, post, title, content, filePath1); // 이미지 경로 태그와 함께 DB에 저장
+%>
+
+<%
+response.setHeader("Refresh", "0; URL=read_Board.jsp?post_no=" + post + "&user_id=" + userId);
 %>
 </body>
 </html>
