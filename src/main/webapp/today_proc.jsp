@@ -95,10 +95,10 @@
 <%
 	}else{
 %>
-		<sctipt>
+		<script>
 			alert('음식명을 확인해주세요');
 			history.go(-1);
-		</sctipt>
+		</script>
 <%
 	}
 		
@@ -134,10 +134,10 @@ if(calDto2 != null){
 <%
 	}else{
 %>
-		<sctipt>
+		<script>
 			alert('음식명을 확인해주세요');
 			history.go(-1);
-		</sctipt>
+		</script>
 <%
 	}
 		
@@ -171,10 +171,10 @@ if(calDto3 != null){
 <%
 	}else{
 %>
-		<sctipt>
+		<script>
 			alert('음식명을 확인해주세요');
 			history.go(-1);
-		</sctipt>
+		</script>
 <%
 	}
 		
@@ -209,10 +209,10 @@ if(calDto4 != null){
 <%
 	}else{
 %>
-		<sctipt>
+		<script>
 			alert('음식명을 확인해주세요');
 			history.go(-1);
-		</sctipt>
+		</script>
 <%
 	}
 		
