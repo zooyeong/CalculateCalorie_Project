@@ -33,11 +33,16 @@ String filePath1 = "<img src='upload/" + fileName1 + "' />";
 String title = multi.getParameter("title");
 String content = multi.getParameter("content");
 %>
-
+<%
+String category = multi.getParameter("category");
+// 선택된 카테고리 값(category)을 사용하여 필요한 처리를 수행합니다.
+%>
 <%@ include file = "header.jsp" %>
 
 User ID: <%= userId %>
+User ID: <%= category %>
 <%
 BoardDao boardDao = new BoardDao();
-int result = boardDao.insertBoard(userId, title, content, filePath1); // 이미지 경로 태그와 함께 DB에 저장
+int result = boardDao.insertBoard(userId, title, content, filePath1, category); // 이미지 경로 태그와 함께 DB에 저장
 %>
+

@@ -49,7 +49,6 @@
 				String encPw = aes256.encrypt(pw);
 				
 				if(memberDto.getPassword().equals(encPw)){
-					
 					session.setAttribute("user_id", id);
 					session.setAttribute("user_name", memberDto.getName());
 					session.setMaxInactiveInterval(3600); //1시간

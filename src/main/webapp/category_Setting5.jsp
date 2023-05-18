@@ -13,7 +13,6 @@
 	display:flex;
  	flex-direction: column;
     align-items: center; /* 수평 가운데 정렬 적용 */
-    
 }
 </style>
 </head>
@@ -35,7 +34,7 @@
 <input type="submit" value="설정완료">
 </form>
 
-<form method="post" action="select_Board2.jsp">
+<form method="post" action="category_Setting5.jsp">
 카테고리5<input type="text" name="category5" id="category5" />
 <input type="submit" value="설정완료">
 </form>
@@ -46,14 +45,13 @@
 <p> *주의사항* </p>
 <p> 카테고리 설정 후 글쓰기 페이지에서 새로고침하여야 적용 됩니다.</p>
 </div>
-
 <%
 request.setCharacterEncoding("UTF-8"); //한글 정상 인식을 위해
 String category5 = request.getParameter("category5");
-
+String userId2 = (String)session.getAttribute("user_id");
 
 CategoryDao categoryDao = new CategoryDao();
-categoryDao.category_Update5(category5);
+categoryDao.category_Update5(category5, userId2);
 
 %>
 

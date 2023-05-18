@@ -40,22 +40,19 @@
 </form>
 
 
-
 <input type="button" value="창 닫기" onclick="window.close();">
 
 <p> *주의사항* </p>
 <p> 카테고리 설정 후 글쓰기 페이지에서 새로고침하여야 적용 됩니다.</p>
 </div>
-
 <%
 request.setCharacterEncoding("UTF-8"); //한글 정상 인식을 위해
 String category4 = request.getParameter("category4");
-
+String userId2 = (String)session.getAttribute("user_id");
 
 CategoryDao categoryDao = new CategoryDao();
-categoryDao.category_Update4(category4);
+categoryDao.category_Update4(category4, userId2);
 
 %>
-
 </body>
 </html>

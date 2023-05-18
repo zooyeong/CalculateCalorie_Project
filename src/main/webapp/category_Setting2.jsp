@@ -48,10 +48,10 @@
 <%
 request.setCharacterEncoding("UTF-8"); //한글 정상 인식을 위해
 String category2 = request.getParameter("category2");
-
+String userId2 = (String)session.getAttribute("user_id");
 
 CategoryDao categoryDao = new CategoryDao();
-categoryDao.category_Update2(category2);
+categoryDao.category_Update2(category2, userId2);
 
 %>
 

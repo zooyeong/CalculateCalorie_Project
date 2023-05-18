@@ -9,15 +9,12 @@
 <%@ page import="choi.dto.CategoryDto"%>
 <%@ page import="choi.dao.CategoryDao"%>
 
-
-
 <%
 String uploadPath = request.getRealPath("upload");;
 
 int size = 10 * 1024 * 1024;
 
 String fileename1 = "";
-String filename2 = "";
 
 try {
 	MultipartRequest multi = new MultipartRequest(request, uploadPath, size, "euc-kr", new DefaultFileRenamePolicy());
@@ -64,7 +61,7 @@ try {
 }
 
 #editor-container {
-	height:500px;
+	height:430px;
 	width:1130px;
 }
 
@@ -86,22 +83,58 @@ try {
 .bodyContainer {
 	width: 100%;
 	display:flex;
+	justify-content: center;
+  align-items: center;
 }
 
 #preview1 {
-  width: 200px;
-  height: 200px;
+  width: 1130px;
+  height: 120px;
   overflow: hidden; /* 크기를 벗어나는 부분은 숨기도록 지정 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid gray;
+  margin: 0 auto;
 }
 
 #preview1 img {
-  max-width: 90%;
-  max-height: 90%;
+  max-width: 100px;
+  max-height: 100px;
 }
 
 .delete-button{
-width:100px;
-height:100px;
+width:30px;
+height:15px;
+}
+
+#title{
+width:935px;
+height:30px;
+}
+
+.centeralign {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top:50px;
+}
+
+#catesele{
+height:30px;
+}
+
+.wc{
+	display:flex;
+	justify-content: center;
+  align-items: center;
+  margin-bottom: 30px;
+  gap:30px;
+}
+
+#catesele1 {
+height:30px;
 }
 
 
@@ -146,47 +179,59 @@ height:100px;
 %>
 
 
+<form name="write_form" id="write_form" action='write_proc.jsp' method="post" enctype="multipart/form-data">
+	<div class="centeralign">
 	<div class="bodyContainer">
 
-	<input type="button" value="카테고리 설정" onclick="window.open('category_Main.jsp', '카테고리 설정', 'width=400,height=400'); return false;">
-
-	<select>
+	<input type="button" id="catesele" value="카테고리 설정" onclick="window.open('category_Main.jsp', '카테고리 설정', 'width=400,height=400');">
+	
+	<select id="catesele1" name="category">
     <% CategoryDao categoryDao = new CategoryDao();
-    List<CategoryDto> categoryList = categoryDao.categoryList();
-    for(CategoryDto categoryDto : categoryList){ %>
-    <option>카테고리 선택</option>
-    <option><%=categoryDto.getCategory2()%></option>
-    <option><%=categoryDto.getCategory3()%></option>
-    <option><%=categoryDto.getCategory4()%></option>
-    <option><%=categoryDto.getCategory5()%></option>
+    List<CategoryDto> categoryList = categoryDao.categoryList(userId2);%>
+    <option disabled selected>카테고리 선택</option>
+    <%for(CategoryDto categoryDto : categoryList){ %>
+    
+    <option ><%= categoryDto.getCategory2() %></option>
+    <option ><%= categoryDto.getCategory3() %></option>
+    <option ><%= categoryDto.getCategory4() %></option>
+    <option ><%= categoryDto.getCategory5() %></option>
     <% } %>
 </select>
-<form name="write_form" id="write_form" action='write_proc.jsp' method="post" enctype="multipart/form-data"  accept-charset="UTF-8">
+
+
+
 
 <input type="text" name="title" id="title" placeholder="제목" />
 </div>
-
-
 
 <!-- Create the editor container -->
 <div id="editor-container"></div>
 
 <input type="hidden" name="content" id="content" />
 
-
-
   <div class="filebox">
+  <input type="file" name="fileename1" onchange="previewImage(event, 'preview1')" id="fileename1">
     <label for="fileename1">이미지첨부</label> 
-    <input type="file" name="fileename1" onchange="previewImage(event, 'preview1')" id="fileename1">
+    
   </div>
-
+</div>
 
 <div id="preview1"></div>
-
-
-<input type="submit" value="등록"  class="bTn custom-btn" />
-<input type="button" value="취소" class="bTn custom-btn" onclick="window.location.href='https://www.naver.com'" />
+  <div class="wc">
+    <input type="submit" value="등록" class="bTn custom-btn" onclick="validateForm(event)" />
+    <input type="button" value="취소" class="bTn custom-btn" onclick="window.location.href='https://www.naver.com'" />
+  </div>
 </form>
+
+<script>
+  function validateForm(event) {
+    var selectedOption = document.getElementById("catesele1").value;
+    if (selectedOption === "카테고리 선택") {
+      event.preventDefault(); // 기본 제출 동작을 막습니다.
+      alert("옵션을 선택해주세요!"); // 경고창을 띄웁니다.
+    }
+  }
+</script>
 
 
 <!-- Initialize Quill editor -->
@@ -208,7 +253,6 @@ height:100px;
 	  };
 </script>
 
-
 <script>
 	document.getElementById('insertBtn').addEventListener('click', () => {
 		
@@ -226,6 +270,13 @@ height:100px;
 	});
 	
 	function previewImage(event, previewId) {
+		  var input = event.target;
+		  if (input.files.length > 1) {
+		    input.value = null; // 파일 선택 초기화
+		    alert("한 개의 파일만 첨부할 수 있습니다.");
+		    return;
+		  }
+		  
 		  // 파일 선택자 엘리먼트
 		  const fileInput = event.target;
 
@@ -243,6 +294,7 @@ height:100px;
 		    // 이미지 삽입
 		    const img = document.createElement('img');
 		    img.src = event.target.result;
+		    preview.innerHTML = '';
 		    preview.appendChild(img);
 
 		    // 이미지와 삭제 버튼을 감싸는 div 생성

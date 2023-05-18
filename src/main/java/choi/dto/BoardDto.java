@@ -13,7 +13,14 @@ public class BoardDto {
 	 int views;
 	 int total_like;
 	 int count_like;
+	 String category;
 	 
+	public String getCategory() {
+		return category;
+	}
+	public void setCategory(String category) {
+		this.category = category;
+	}
 	public String getUser_id() {
 		return user_id;
 	}
