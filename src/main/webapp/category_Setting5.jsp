@@ -8,10 +8,17 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style>
+.container{
+	display:flex;
+ 	flex-direction: column;
+    align-items: center; /* 수평 가운데 정렬 적용 */
+}
+</style>
 </head>
 <body>
 
-
+<div class="container">
 <form method="post" action="category_Setting2.jsp">
 카테고리2<input type="text" name="category2" id="category2" />
 <input type="submit" value="설정완료">
@@ -32,15 +39,19 @@
 <input type="submit" value="설정완료">
 </form>
 
-<a href="write_Board.jsp" class="button">글쓰기 페이지로</a>
 
+<input type="button" value="창 닫기" onclick="window.close();">
+
+<p> *주의사항* </p>
+<p> 카테고리 설정 후 글쓰기 페이지에서 새로고침하여야 적용 됩니다.</p>
+</div>
 <%
 request.setCharacterEncoding("UTF-8"); //한글 정상 인식을 위해
 String category5 = request.getParameter("category5");
-
+String userId2 = (String)session.getAttribute("user_id");
 
 CategoryDao categoryDao = new CategoryDao();
-categoryDao.category_Update5(category5);
+categoryDao.category_Update5(category5, userId2);
 
 %>
 

@@ -101,8 +101,6 @@
     var content = document.querySelector('#editor-container .ql-editor').innerHTML;
     document.querySelector('#content').value = content;
   }
-  
- 
 </script>
 </body>
 </html>

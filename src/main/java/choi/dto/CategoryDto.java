@@ -2,17 +2,17 @@ package choi.dto;
 
 public class CategoryDto {
 
-	 int user_id;
+	 String user_id;
 	 String category2;
 	 String category3;
 	 String category4;
 	 String category5;
 	 
 	 
-	public int getUser_id() {
+	public String getUser_id() {
 		return user_id;
 	}
-	public void setUser_id(int user_id) {
+	public void setUser_id(String user_id) {
 		this.user_id = user_id;
 	}
 
