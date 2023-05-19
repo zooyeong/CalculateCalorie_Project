@@ -29,6 +29,7 @@ h2{
   font-family: 'omyu_pretty';
   font-size: 2rem;
 }
+form{padding:10px !important;}
 </style>
 </head>
 <body>
@@ -53,6 +54,7 @@ h2{
 	%>
 				<form id='resultForm'>
 				<a href="javascript:void(0);" onclick="returnMain(this)"><%=val.getName() %></a>
+				<span style="font-size:0.8rem;">(1인분 당 칼로리 : <%=val.getCalorie() %>)</span>
 				</form>
 	<%
 			}
